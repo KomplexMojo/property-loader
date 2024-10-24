@@ -1,0 +1,294 @@
+{
+  "$schema": "http://example.com/schemas/dungeon-crawler-schema.json",
+  "version": "1.0.0",
+  "appearances": [
+    {
+      "index": 0,
+      "name": "Self",
+      "description": "Defines the visual appearance for Self.",
+      "defaults": {
+        "required": true,
+        "growth": "fixed"
+      },
+      "properties": [],
+      "visualization": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          0,
+          0,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0
+        ]
+      ]
+    }
+  ],
+  "characteristics": [
+    {
+      "index": 40,
+      "name": "Relationship",
+      "description": "Defines whether the sprite is a character (player, ally, adversary, neutral) or a static item.",
+      "defaults": {
+        "required": true,
+        "growth": "fixed"
+      },
+      "properties": [
+        {
+          "value": 0,
+          "name": "Self",
+          "description": "The player-controlled character."
+        },
+        {
+          "value": 1,
+          "name": "Ally",
+          "description": "An ally NPC."
+        },
+        {
+          "value": 2,
+          "name": "Adversary",
+          "description": "An adversary NPC."
+        },
+        {
+          "value": 3,
+          "name": "Neutral",
+          "description": "A neutral entity."
+        },
+        {
+          "value": 4,
+          "name": "StaticItem",
+          "description": "A non-character, static item."
+        }
+      ]
+    }
+  ],
+  "behaviours": [
+    {
+      "index": 90,
+      "name": "Aggression",
+      "description": "Determines how likely the character is to attack or engage in combat.",
+      "defaults": {
+        "required": false,
+        "growth": "variable"
+      },
+      "properties": [
+        {
+          "value": 0,
+          "name": "Passive",
+          "description": "Avoids combat and doesn't initiate attacks."
+        },
+        {
+          "value": 1,
+          "name": "Neutral",
+          "description": "Neutral towards combat; neither seeks nor avoids it."
+        },
+        {
+          "value": 2,
+          "name": "Aggressive",
+          "description": "Actively seeks out combat and engages enemies."
+        }
+      ]
+    }
+  ],
+  "triggers": [
+    {
+      "index": 190,
+      "name": "Input",
+      "description": "User input actions like up, down, left, right.",
+      "defaults": {
+        "required": true,
+        "growth": "fixed"
+      },
+      "properties": [
+        {
+          "value": 0,
+          "name": "Action",
+          "description": "The action performed by the user (e.g., 'use', 'move')."
+        },
+        {
+          "value": 1,
+          "name": "Direction",
+          "description": "The direction of the input (e.g., 'up', 'down')."
+        }
+      ]
+    }
+  ],
+  "conditions": [
+    {
+      "index": 231,
+      "name": "HasItem",
+      "description": "Checks if the player has a specified quantity of an item.",
+      "defaults": {
+        "required": true,
+        "growth": "fixed"
+      },
+      "properties": [
+        {
+          "value": 0,
+          "name": "Item ID",
+          "description": "The ID of the item to check."
+        },
+        {
+          "value": 1,
+          "name": "Minimum Quantity",
+          "description": "The minimum quantity required."
+        }
+      ]
+    }
+  ],
+  "effects": [
+    {
+      "index": 210,
+      "name": "CreateItem",
+      "description": "Creates a new item in the inventory.",
+      "defaults": {
+        "required": true,
+        "growth": "fixed"
+      },
+      "properties": [
+        {
+          "value": 0,
+          "name": "Item ID",
+          "description": "The ID of the item to create."
+        },
+        {
+          "value": 1,
+          "name": "Quantity",
+          "description": "The quantity of the item to create."
+        }
+      ]
+    }
+  ],
+  "events": [
+    {
+      "index": 140,
+      "name": "EquipItem",
+      "description": "Equips an item in inventory.",
+      "defaults": {
+        "required": false,
+        "growth": "variable"
+      },
+      "trigger": {
+        "typeIndex": 190,
+        "parameters": [
+          {
+            "propertyIndex": 0,
+            "value": 0
+          },
+          {
+            "propertyIndex": 1,
+            "value": 1
+          }
+        ]
+      },
+      "condition": {
+        "typeIndex": 231,
+        "parameters": [
+          {
+            "propertyIndex": 0,
+            "value": 101
+          },
+          {
+            "propertyIndex": 1,
+            "value": 1
+          }
+        ]
+      },
+      "effect": {
+        "typeIndex": 211,
+        "parameters": [
+          {
+            "propertyIndex": 0,
+            "value": 101
+          },
+          {
+            "propertyIndex": 1,
+            "value": 2
+          }
+        ]
+      },
+      "appliesTo": {
+        "entityType": "Player",
+        "entityId": 1
+      }
+    },
+    {
+      "index": 141,
+      "name": "CreateHealthPotion",
+      "description": "Creates a health potion after a set duration.",
+      "defaults": {
+        "required": true,
+        "growth": "fixed"
+      },
+      "trigger": {
+        "typeIndex": 191,
+        "parameters": [
+          {
+            "propertyIndex": 0,
+            "value": 30
+          }
+        ]
+      },
+      "condition": {
+        "typeIndex": 230,
+        "parameters": []
+      },
+      "effect": {
+        "typeIndex": 210,
+        "parameters": [
+          {
+            "propertyIndex": 0,
+            "value": 102
+          },
+          {
+            "propertyIndex": 1,
+            "value": 1
+          }
+        ]
+      },
+      "appliesTo": {
+        "entityType": "Player",
+        "entityId": 1
+      }
+    }
+  ],
+  "targets": [
+    {
+      "entityType": "Player",
+      "entityId": 1,
+      "description": "The main player character."
+    },
+    {
+      "entityType": "NPC",
+      "entityId": 2,
+      "description": "An ally NPC."
+    }
+  ]
+}

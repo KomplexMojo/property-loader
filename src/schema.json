@@ -1,0 +1,359 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://example.com/schemas/dungeon-crawler-schema.json",
+  "title": "Dungeon Crawler Game Schema",
+  "version": "1.0.0",
+  "type": "object",
+  "properties": {
+    "appearances": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/appearance"
+      }
+    },
+    "characteristics": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/characteristic"
+      }
+    },
+    "behaviours": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/behaviour"
+      }
+    },
+    "triggers": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/trigger"
+      }
+    },
+    "conditions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/condition"
+      }
+    },
+    "effects": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/effect"
+      }
+    },
+    "events": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/event"
+      }
+    },
+    "targets": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/target"
+      }
+    }
+  },
+  "required": [
+    "appearances",
+    "characteristics",
+    "behaviours",
+    "triggers",
+    "conditions",
+    "effects",
+    "events",
+    "targets"
+  ],
+  "definitions": {
+    "defaults": {
+      "type": "object",
+      "properties": {
+        "required": {
+          "type": "boolean"
+        },
+        "growth": {
+          "type": "string",
+          "enum": [
+            "fixed",
+            "variable"
+          ]
+        }
+      },
+      "required": [
+        "required",
+        "growth"
+      ]
+    },
+    "property": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "value",
+        "name",
+        "description"
+      ]
+    },
+    "parameterValue": {
+      "type": "object",
+      "properties": {
+        "propertyIndex": {
+          "type": "integer"
+        },
+        "value": {
+          "type": [
+            "string",
+            "number",
+            "boolean"
+          ]
+        }
+      },
+      "required": [
+        "propertyIndex",
+        "value"
+      ]
+    },
+    "appearance": {
+      "type": "object",
+      "properties": {
+        "index": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 39
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "defaults": {
+          "$ref": "#/definitions/defaults"
+        },
+        "properties": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": [
+                  "integer",
+                  "string",
+                  "boolean",
+                  "number"
+                ]
+              },
+              "name": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "value",
+              "name",
+              "description"
+            ]
+          }
+        },
+        "visualization": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          }
+        }
+      },
+      "required": [
+        "index",
+        "name",
+        "description",
+        "defaults",
+        "properties"
+      ]
+    },
+    "characteristic": {
+      "type": "object",
+      "properties": {
+        "index": {
+          "type": "integer",
+          "minimum": 40,
+          "maximum": 89
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "defaults": {
+          "$ref": "#/definitions/defaults"
+        },
+        "properties": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/property"
+          }
+        }
+      },
+      "required": [
+        "index",
+        "name",
+        "description",
+        "defaults",
+        "properties"
+      ]
+    },
+    "behaviour": {
+      "type": "object",
+      "properties": {
+        "index": {
+          "type": "integer",
+          "minimum": 90,
+          "maximum": 139
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "defaults": {
+          "$ref": "#/definitions/defaults"
+        },
+        "properties": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/property"
+          }
+        }
+      },
+      "required": [
+        "index",
+        "name",
+        "description",
+        "defaults",
+        "properties"
+      ]
+    },
+    "trigger": {
+      "type": "object",
+      "properties": {
+        "typeIndex": {
+          "type": "integer"
+        },
+        "parameters": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/parameterValue"
+          }
+        }
+      },
+      "required": [
+        "typeIndex",
+        "parameters"
+      ]
+    },
+    "condition": {
+      "type": "object",
+      "properties": {
+        "typeIndex": {
+          "type": "integer"
+        },
+        "parameters": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/parameterValue"
+          }
+        }
+      },
+      "required": [
+        "typeIndex",
+        "parameters"
+      ]
+    },
+    "effect": {
+      "type": "object",
+      "properties": {
+        "typeIndex": {
+          "type": "integer"
+        },
+        "parameters": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/parameterValue"
+          }
+        }
+      },
+      "required": [
+        "typeIndex",
+        "parameters"
+      ]
+    },
+    "event": {
+      "type": "object",
+      "properties": {
+        "index": {
+          "type": "integer",
+          "minimum": 140,
+          "maximum": 169
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "defaults": {
+          "$ref": "#/definitions/defaults"
+        },
+        "trigger": {
+          "$ref": "#/definitions/trigger"
+        },
+        "condition": {
+          "$ref": "#/definitions/condition"
+        },
+        "effect": {
+          "$ref": "#/definitions/effect"
+        },
+        "appliesTo": {
+          "type": "object",
+          "properties": {
+            "entityType": {
+              "type": "string"
+            },
+            "entityId": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "entityType",
+            "entityId"
+          ]
+        }
+      },
+      "required": [
+        "index",
+        "name",
+        "description",
+        "defaults",
+        "trigger",
+        "condition",
+        "effect",
+        "appliesTo"
+      ]
+    }
+  }
+}
