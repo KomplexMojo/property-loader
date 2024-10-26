@@ -1,90 +1,158 @@
 {
-  "$schema": "http://example.com/schemas/dungeon-crawler-schema.json",
-  "version": "1.0.0",
   "appearances": [
     {
       "index": 0,
-      "name": "Self",
-      "description": "Defines the visual appearance for Self.",
-      "defaults": {
-        "required": true,
-        "growth": "fixed"
-      },
-      "properties": [],
-      "visualization": [
-        [
-          0,
-          0,
-          0,
-          0,
-          0,
-          1,
-          1,
-          1,
-          1,
-          1,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0
-        ],
-        [
-          0,
-          0,
-          0,
-          0,
-          1,
-          1,
-          1,
-          0,
-          0,
-          1,
-          1,
-          1,
-          0,
-          0,
-          0,
-          0
-        ]
-      ]
-    }
-  ],
-  "characteristics": [
-    {
-      "index": 40,
-      "name": "Relationship",
-      "description": "Defines whether the sprite is a character (player, ally, adversary, neutral) or a static item.",
+      "name": "Hero",
+      "description": "The main player character.",
       "defaults": {
         "required": true,
         "growth": "fixed"
       },
       "properties": [
         {
-          "value": 0,
-          "name": "Self",
-          "description": "The player-controlled character."
-        },
-        {
           "value": 1,
-          "name": "Ally",
-          "description": "An ally NPC."
+          "name": "SpriteID",
+          "description": "Identifier for the hero's sprite."
+        }
+      ],
+      "pixels": [
+        {
+          "index": 0,
+          "r": 255,
+          "g": 0,
+          "b": 0,
+          "a": 255
         },
         {
-          "value": 2,
-          "name": "Adversary",
-          "description": "An adversary NPC."
+          "index": 1,
+          "r": 0,
+          "g": 255,
+          "b": 0,
+          "a": 255
         },
         {
-          "value": 3,
-          "name": "Neutral",
-          "description": "A neutral entity."
+          "index": 154,
+          "r": 0,
+          "g": 0,
+          "b": 255,
+          "a": 255
         },
         {
-          "value": 4,
-          "name": "StaticItem",
-          "description": "A non-character, static item."
+          "index": 155,
+          "r": 255,
+          "g": 255,
+          "b": 0,
+          "a": 255
+        },
+
+        
+        {
+          "index": 156,
+          "r": 40,
+          "g": 0,
+          "b": 100,
+          "a": 0
+        },
+        {
+          "index": 157,
+          "r": 41,
+          "g": 1,
+          "b": 90,
+          "a": 0
+        },
+
+        {
+          "index": 174,
+          "r": 58,
+          "g": 18,
+          "b": 10,
+          "a": 0
+        },
+        {
+          "index": 175,
+          "r": 59,
+          "g": 19,
+          "b": 0,
+          "a": 0
+        },
+        {
+          "index": 176,
+          "r": 90,
+          "g": 0,
+          "b": 1,
+          "a": 0
+        },
+        {
+          "index": 177,
+          "r": 91,
+          "g": 1,
+          "b": 2,
+          "a": 0
+        },
+        {
+          "index": 194,
+          "r": 108,
+          "g": 18,
+          "b": 19,
+          "a": 0
+        },
+        {
+          "index": 195,
+          "r": 109,
+          "g": 19,
+          "b": 20,
+          "a": 0
+        },
+        {
+          "index": 196,
+          "r": 1,
+          "g": 2,
+          "b": 3,
+          "a": 0
+        },
+        {
+          "index": 197,
+          "r": 4,
+          "g": 5,
+          "b": 6,
+          "a": 0
+        },
+        {
+          "index": 254,
+          "r": 252,
+          "g": 253,
+          "b": 254,
+          "a": 0
+        },
+        {
+          "index": 255,
+          "r": 255,
+          "g": 255,
+          "b": 255,
+          "a": 0
+        }
+      ]
+    }
+  ],
+  "characteristics": [
+    {
+      "index": 40,
+      "name": "Health",
+      "description": "Represents the health points of an entity.",
+      "defaults": {
+        "required": true,
+        "growth": "variable"
+      },
+      "properties": [
+        {
+          "value": 100,
+          "name": "MaxHealth",
+          "description": "The maximum health points."
+        },
+        {
+          "value": 75,
+          "name": "CurrentHealth",
+          "description": "The current health points."
         }
       ]
     }
@@ -92,27 +160,22 @@
   "behaviours": [
     {
       "index": 90,
-      "name": "Aggression",
-      "description": "Determines how likely the character is to attack or engage in combat.",
+      "name": "Aggressive",
+      "description": "Entity attacks enemies on sight.",
       "defaults": {
-        "required": false,
-        "growth": "variable"
+        "required": true,
+        "growth": "fixed"
       },
       "properties": [
         {
-          "value": 0,
-          "name": "Passive",
-          "description": "Avoids combat and doesn't initiate attacks."
+          "value": 10,
+          "name": "AttackPower",
+          "description": "The strength of the entity's attacks."
         },
         {
-          "value": 1,
-          "name": "Neutral",
-          "description": "Neutral towards combat; neither seeks nor avoids it."
-        },
-        {
-          "value": 2,
-          "name": "Aggressive",
-          "description": "Actively seeks out combat and engages enemies."
+          "value": 5,
+          "name": "Defense",
+          "description": "The entity's defensive capability."
         }
       ]
     }
@@ -120,22 +183,17 @@
   "triggers": [
     {
       "index": 190,
-      "name": "Input",
-      "description": "User input actions like up, down, left, right.",
+      "name": "OnHealthChange",
+      "description": "Triggered when the entity's health changes.",
       "defaults": {
-        "required": true,
-        "growth": "fixed"
+        "required": false,
+        "growth": "variable"
       },
       "properties": [
         {
           "value": 0,
-          "name": "Action",
-          "description": "The action performed by the user (e.g., 'use', 'move')."
-        },
-        {
-          "value": 1,
-          "name": "Direction",
-          "description": "The direction of the input (e.g., 'up', 'down')."
+          "name": "HealthThreshold",
+          "description": "Health percentage to trigger the event."
         }
       ]
     }
@@ -143,22 +201,17 @@
   "conditions": [
     {
       "index": 231,
-      "name": "HasItem",
-      "description": "Checks if the player has a specified quantity of an item.",
+      "name": "IsEnemyNearby",
+      "description": "Checks if an enemy is within a certain range.",
       "defaults": {
         "required": true,
         "growth": "fixed"
       },
       "properties": [
         {
-          "value": 0,
-          "name": "Item ID",
-          "description": "The ID of the item to check."
-        },
-        {
-          "value": 1,
-          "name": "Minimum Quantity",
-          "description": "The minimum quantity required."
+          "value": 5,
+          "name": "Range",
+          "description": "The detection range in units."
         }
       ]
     }
@@ -166,22 +219,17 @@
   "effects": [
     {
       "index": 210,
-      "name": "CreateItem",
-      "description": "Creates a new item in the inventory.",
+      "name": "IncreaseHealth",
+      "description": "Increases the entity's health.",
       "defaults": {
-        "required": true,
-        "growth": "fixed"
+        "required": false,
+        "growth": "variable"
       },
       "properties": [
         {
-          "value": 0,
-          "name": "Item ID",
-          "description": "The ID of the item to create."
-        },
-        {
-          "value": 1,
-          "name": "Quantity",
-          "description": "The quantity of the item to create."
+          "value": 20,
+          "name": "HealthAmount",
+          "description": "Amount of health to increase."
         }
       ]
     }
@@ -189,106 +237,40 @@
   "events": [
     {
       "index": 140,
-      "name": "EquipItem",
-      "description": "Equips an item in inventory.",
+      "name": "LowHealthEvent",
+      "description": "Event triggered when health is low.",
       "defaults": {
         "required": false,
         "growth": "variable"
       },
-      "trigger": {
-        "typeIndex": 190,
-        "parameters": [
-          {
-            "propertyIndex": 0,
-            "value": 0
-          },
-          {
-            "propertyIndex": 1,
-            "value": 1
-          }
-        ]
-      },
-      "condition": {
-        "typeIndex": 231,
-        "parameters": [
-          {
-            "propertyIndex": 0,
-            "value": 101
-          },
-          {
-            "propertyIndex": 1,
-            "value": 1
-          }
-        ]
-      },
-      "effect": {
-        "typeIndex": 211,
-        "parameters": [
-          {
-            "propertyIndex": 0,
-            "value": 101
-          },
-          {
-            "propertyIndex": 1,
-            "value": 2
-          }
-        ]
-      },
-      "appliesTo": {
-        "entityType": "Player",
-        "entityId": 1
-      }
-    },
-    {
-      "index": 141,
-      "name": "CreateHealthPotion",
-      "description": "Creates a health potion after a set duration.",
-      "defaults": {
-        "required": true,
-        "growth": "fixed"
-      },
-      "trigger": {
-        "typeIndex": 191,
-        "parameters": [
-          {
-            "propertyIndex": 0,
-            "value": 30
-          }
-        ]
-      },
-      "condition": {
-        "typeIndex": 230,
-        "parameters": []
-      },
-      "effect": {
-        "typeIndex": 210,
-        "parameters": [
-          {
-            "propertyIndex": 0,
-            "value": 102
-          },
-          {
-            "propertyIndex": 1,
-            "value": 1
-          }
-        ]
-      },
-      "appliesTo": {
-        "entityType": "Player",
-        "entityId": 1
-      }
-    }
-  ],
-  "targets": [
-    {
-      "entityType": "Player",
-      "entityId": 1,
-      "description": "The main player character."
-    },
-    {
-      "entityType": "NPC",
-      "entityId": 2,
-      "description": "An ally NPC."
+      "triggers": [
+        {
+          "index": 190,
+          "propertyIndex": 0,
+          "value": 1
+        }
+      ],
+      "conditions": [
+        {
+          "index": 231,
+          "propertyIndex": 0,
+          "value": 30
+        }
+      ],
+      "effects": [
+        {
+          "index": 210,
+          "propertyIndex": 0,
+          "value": 20
+        }
+      ],
+      "appliesTo": [
+        {
+          "index": 40,
+          "propertyIndex": 0,
+          "value": 0
+        }
+      ]
     }
   ]
 }
