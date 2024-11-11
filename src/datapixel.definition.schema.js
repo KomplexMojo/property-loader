@@ -1,7 +1,6 @@
 // datapixel.schema.js
 
 import Ajv from "ajv";
-import addFormats from "ajv-formats";
 import addErrors from "ajv-errors";
 
 // Initialize AJV
@@ -81,6 +80,6 @@ const DataPixelDefinitionSchema = {
 };
 
 // Compile the schema for validation
-const CompiledDataPixelSchema = ajv.compile(DataPixelDefinitionSchema);
+const CompiledDataPixelDefinition = ajv.compile(DataPixelDefinitionSchema);
 
-export { CompiledDataPixelSchema, DataPixelDefinitionSchema };
+export { CompiledDataPixelDefinition, DataPixelDefinitionSchema };

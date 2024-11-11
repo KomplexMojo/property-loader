@@ -8,7 +8,8 @@ const IndexRangeRegistry = {
     triggerRange: { start: 160, end: 191 },
     effectRange: { start: 192, end: 223 },
     conditionRange: { start: 224, end: 255 },
-    profileDefaultsRange: { start: 224, end: 255 } // constrained by the number of values that fit into a u8.
+    profileDefaultsRange: { start: 0, end: 255 }, // constrained by the number of values that fit into a u8.
+    propertyValueRange: { start: 0, end: 255 }
   };
   
   export default IndexRangeRegistry;

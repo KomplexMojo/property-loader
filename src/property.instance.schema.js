@@ -1,18 +1,23 @@
 import Ajv from "ajv";
-import addFormats from "ajv-formats";
 import addErrors from "ajv-errors";
+import IndexRangeRegistry from "./indexregistry.js";
 
 // Initialize AJV
 const ajv = new Ajv({ allErrors: true });
-addFormats(ajv);
 addErrors(ajv);
+
+const { start: propertyValueStart, end: propertyvalueEnd } = IndexRangeRegistry.propertyValueRange;
 
 // Define the Property schema
 const PropertyInstanceSchema = {
   type: "object",
   $id: "http://example.com/schemas/property.instance.json",
   properties: {
-    value: { type: "integer", range: [0,255] },
+    value: {
+      type: "integer",
+      minimum: propertyValueStart,
+      maximum: propertyvalueEnd
+    },
   },
   required: ["value"],
   additionalProperties: false,

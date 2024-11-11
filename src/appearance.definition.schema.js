@@ -2,8 +2,8 @@
 
 import Ajv from "ajv";
 import addErrors from "ajv-errors";
-import { AppearanceIndexSchema } from "./appearance.index.schema";
-import { DefinitionExtensionSchema } from "./definition.extension.schema";
+import { AppearanceIndexSchema } from "./appearance.index.schema.js";
+import { DefinitionExtensionSchema } from "./definition.extension.schema.js";
 
 // Initialize AJV
 const ajv = new Ajv({ allErrors: true });

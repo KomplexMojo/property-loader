@@ -2,18 +2,17 @@
 
 import Ajv from "ajv";
 import addErrors from "ajv-errors";
-import { BehaviourDefinitionSchema } from "./behaviour.definition.schema";
-import { BehaviourIndexSchema } from "./behaviour.index.schema";
-import { DefinitionExtensionSchema } from "./definition.extension.schema";
-import IndexRangeRegistry from "./indexregistry";
+import { BehaviourIndexSchema } from "./behaviour.index.schema.js";
+import { BehaviourDefinitionSchema } from "./behaviour.definition.schema.js";
+import { DefinitionExtensionSchema } from "./definition.extension.schema.js";
+import { ProfileDefaultDefinitionSchema } from "./profiledefault.definition.schema.js"
 
 // Initialize AJV
 const ajv = new Ajv({ allErrors: true });
 
-const { start: behaviourStart, end: behaviourEnd } = IndexRangeRegistry.behaviours;
-
 addErrors(ajv);
 
+ajv.addSchema(ProfileDefaultDefinitionSchema, "http://example.com/schemas/profile.default.definition.schema.json");
 ajv.addSchema(BehaviourIndexSchema, "http://example.com/schemas/behaviour.index.json");
 ajv.addSchema(DefinitionExtensionSchema, "http://example.com/schemas/definition.extension.json");
 ajv.addSchema(BehaviourDefinitionSchema, "http://example.com/schemas/behaviour.definition.json");

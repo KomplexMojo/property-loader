@@ -1,13 +1,13 @@
 import Ajv from "ajv";
 import addErrors from "ajv-errors";
-import IndexRangeRegistry from "./indexRangeRegistry.js";
+import IndexRangeRegistry from "./indexregistry.js";
 
 // Initialize AJV
 const ajv = new Ajv({ allErrors: true });
 
 addErrors(ajv);
 
-const { start: characteristicStart, end: characteristicEnd } = IndexRangeRegistry.characteristics;
+const { start: characteristicStart, end: characteristicEnd } = IndexRangeRegistry.characteristicRange;
 
 const CharacteristicIndexSchema = {
   $schema: "http://json-schema.org/draft-07/schema#",

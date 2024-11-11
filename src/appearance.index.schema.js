@@ -4,7 +4,7 @@ import Ajv from "ajv";
 import addErrors from "ajv-errors";
 
 // Import the IndexRangeRegistry
-import IndexRangeRegistry from "./indexRangeRegistry.js";
+import IndexRangeRegistry from "./indexregistry.js";
 
 // Initialize AJV
 const ajv = new Ajv({ allErrors: true });
@@ -12,7 +12,7 @@ const ajv = new Ajv({ allErrors: true });
 addErrors(ajv);
 
 // Get the start and end values for appearances from the IndexRangeRegistry
-const { start: appearanceStart, end: appearanceEnd } = IndexRangeRegistry.appearances;
+const { start: appearanceStart, end: appearanceEnd } = IndexRangeRegistry.appearanceRange;
 
 const AppearanceIndexSchema = {
   $schema: "http://json-schema.org/draft-07/schema#",

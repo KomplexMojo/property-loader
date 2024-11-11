@@ -1,11 +1,10 @@
 // behaviourindex.schema.js
 
 import Ajv from "ajv";
-import addFormats from "ajv-formats";
 import addErrors from "ajv-errors";
 
 // Import the IndexRangeRegistry
-import IndexRangeRegistry from "./indexRangeRegistry.js";
+import IndexRangeRegistry from "./indexregistry.js";
 
 // Initialize AJV
 const ajv = new Ajv({ allErrors: true });
