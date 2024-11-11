@@ -1,64 +1,126 @@
-import { expect} from "chai";
-import Ajv from "ajv";
-import addFormats from "ajv-formats";
-import addErrors from "ajv-errors";
+import { expect } from "chai";
+import { CompiledVisualPixelSchema } from "../src/visualpixel.schema.js"; // Adjust the path if necessary
 
-// Initialize AJV
-const ajv = new Ajv({ allErrors: true });
-addFormats(ajv);
-addErrors(ajv);
-
-// Define the VisualPixelschema
-export const VisualPixelSchema = {
-  type: "object",
-  $id: "http://example.com/schemas/visualpixel.json",
-  properties: {
-    index: { type: "integer", minimum: 0, maximum: 255 }, // unique index in the uint8 range
-    R: { type: "integer", minimum: 0, maximum: 255 }, // uint8 red value
-    G: { type: "integer", minimum: 0, maximum: 255 }, // uint8 green value
-    B: { type: "integer", minimum: 0, maximum: 255 }, // uint8 blue value
-    A: { type: "integer", minimum: 1, maximum: 255 }, // uint8 alpha value, always 0
-  },
-  required: ["index", "R", "G", "B", "A"],
-  additionalProperties: false,
-};
-
-// Compile the schema for validation
-const validateVisualPixel= ajv.compile(VisualPixelSchema);
-
-// Mocha test suite for VisualPixelschema validation
+// Test suite for VisualPixelSchema
 describe("VisualPixelSchema Validation", function () {
-  it("should validate a correct VisualPixelobject", function () {
-    const validVisualPixel= {
+  
+  it("should validate a correct VisualPixel object", function () {
+    const validVisualPixel = {
       index: 10,
+      R: 100,
+      G: 150,
+      B: 200,
+      A: 1, // Valid alpha value greater than 0
+    };
+
+    const isValid = CompiledVisualPixelSchema(validVisualPixel);
+    expect(isValid).to.be.true;
+    expect(CompiledVisualPixelSchema.errors).to.be.null;
+  });
+
+  it("should invalidate a VisualPixel object with an out-of-range index", function () {
+    const invalidVisualPixel = {
+      index: 300, // Invalid index, out of range
       R: 100,
       G: 150,
       B: 200,
       A: 1,
     };
 
-    const isValid = validateVisualPixel(validVisualPixel);
-    expect(isValid).to.be.true;
-    expect(validateVisualPixel.errors).to.be.null;
-    if (!isValid) {
-      console.log("Validation errors:", validatePixelArray.errors);
-    }
+    const isValid = CompiledVisualPixelSchema(invalidVisualPixel);
+    expect(isValid).to.be.false;
+    expect(CompiledVisualPixelSchema.errors).to.not.be.null;
+    //console.error("Validation errors for out-of-range index:", CompiledVisualPixelSchema.errors);
   });
 
-  it("should invalidate an incorrect VisualPixelobject with out-of-range values", function () {
-    const invalidVisualPixel= {
-      index: 300, // invalid index, out of range
-      R: 256, // invalid R value, out of uint8 range
+  it("should invalidate a VisualPixel object with an out-of-range R value", function () {
+    const invalidVisualPixel = {
+      index: 50,
+      R: 256, // Invalid R value, out of uint8 range
       G: 150,
       B: 200,
-      A: 0, // invalid A value, should be 0
+      A: 1,
     };
 
-    const isValid = validateVisualPixel(invalidVisualPixel);
+    const isValid = CompiledVisualPixelSchema(invalidVisualPixel);
     expect(isValid).to.be.false;
-    expect(validateVisualPixel.errors).to.not.be.null;
-    if (isValid) {
-      console.log("Validation errors:", validatePixelArray.errors);
-    }
+    expect(CompiledVisualPixelSchema.errors).to.not.be.null;
+    //console.error("Validation errors for out-of-range R value:", CompiledVisualPixelSchema.errors);
+  });
+
+  it("should invalidate a VisualPixel object with an out-of-range G value", function () {
+    const invalidVisualPixel = {
+      index: 50,
+      R: 100,
+      G: 300, // Invalid G value, out of uint8 range
+      B: 200,
+      A: 1,
+    };
+
+    const isValid = CompiledVisualPixelSchema(invalidVisualPixel);
+    expect(isValid).to.be.false;
+    expect(CompiledVisualPixelSchema.errors).to.not.be.null;
+    //console.error("Validation errors for out-of-range G value:", CompiledVisualPixelSchema.errors);
+  });
+
+  it("should invalidate a VisualPixel object with an out-of-range B value", function () {
+    const invalidVisualPixel = {
+      index: 50,
+      R: 100,
+      G: 150,
+      B: 256, // Invalid B value, out of uint8 range
+      A: 1,
+    };
+
+    const isValid = CompiledVisualPixelSchema(invalidVisualPixel);
+    expect(isValid).to.be.false;
+    expect(CompiledVisualPixelSchema.errors).to.not.be.null;
+    //console.error("Validation errors for out-of-range B value:", CompiledVisualPixelSchema.errors);
+  });
+
+  it("should invalidate a VisualPixel object with an out-of-range A value", function () {
+    const invalidVisualPixel = {
+      index: 50,
+      R: 100,
+      G: 150,
+      B: 200,
+      A: 0, // Invalid A value, should be greater than 0
+    };
+
+    const isValid = CompiledVisualPixelSchema(invalidVisualPixel);
+    expect(isValid).to.be.false;
+    expect(CompiledVisualPixelSchema.errors).to.not.be.null;
+    //console.error("Validation errors for out-of-range A value:", CompiledVisualPixelSchema.errors);
+  });
+
+  it("should invalidate a VisualPixel object with missing required properties", function () {
+    const invalidVisualPixel = {
+      index: 50,
+      R: 100,
+      G: 150,
+      // B property is missing
+      A: 1,
+    };
+
+    const isValid = CompiledVisualPixelSchema(invalidVisualPixel);
+    expect(isValid).to.be.false;
+    expect(CompiledVisualPixelSchema.errors).to.not.be.null;
+    //console.error("Validation errors for missing required property:", CompiledVisualPixelSchema.errors);
+  });
+
+  it("should invalidate a VisualPixel object with additional properties", function () {
+    const invalidVisualPixel = {
+      index: 50,
+      R: 100,
+      G: 150,
+      B: 200,
+      A: 1,
+      extraProperty: "not allowed", // Additional property not allowed
+    };
+
+    const isValid = CompiledVisualPixelSchema(invalidVisualPixel);
+    expect(isValid).to.be.false;
+    expect(CompiledVisualPixelSchema.errors).to.not.be.null;
+    //console.error("Validation errors for additional property:", CompiledVisualPixelSchema.errors);
   });
 });

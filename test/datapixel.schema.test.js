@@ -1,64 +1,142 @@
-import { expect} from "chai";
-import Ajv from "ajv";
-import addFormats from "ajv-formats";
-import addErrors from "ajv-errors";
+import { expect } from "chai";
+import { CompiledDataPixelSchema } from "../src/datapixel.schema.js"; // Adjust the path if necessary
 
-// Initialize AJV
-const ajv = new Ajv({ allErrors: true });
-addFormats(ajv);
-addErrors(ajv);
-
-// Define the DataPixel schema
-export const DataPixelSchema = {
-  type: "object",
-  $id: "http://example.com/schemas/datapixel.json",
-  properties: {
-    index: { type: "integer", minimum: 0, maximum: 255 }, // unique index in the uint8 range
-    R: { type: "integer", minimum: 0, maximum: 255 }, // uint8 red value
-    G: { type: "integer", minimum: 0, maximum: 255 }, // uint8 green value
-    B: { type: "integer", minimum: 0, maximum: 255 }, // uint8 blue value
-    A: { const: 0 }, // uint8 alpha value, always 0
-  },
-  required: ["index", "R", "G", "B", "A"],
-  additionalProperties: false,
-};
-
-// Compile the schema for validation
-const validateDataPixel = ajv.compile(DataPixelSchema);
-
-// Mocha test suite for DataPixel schema validation
-describe("DataPixel Schema Validation", function () {
+// Test suite for DataPixelSchema
+describe("DataPixelSchema Validation", function () {
   it("should validate a correct DataPixel object", function () {
     const validDataPixel = {
       index: 10,
       R: 100,
       G: 150,
       B: 200,
-      A: 0,
+      A: 0, // Valid alpha value, always 0 for data pixels
     };
 
-    const isValid = validateDataPixel(validDataPixel);
+    const isValid = CompiledDataPixelSchema(validDataPixel);
     expect(isValid).to.be.true;
-    expect(validateDataPixel.errors).to.be.null;
+    expect(CompiledDataPixelSchema.errors).to.be.null;
     if (!isValid) {
-      console.log("Validation errors:", validatePixelArray.errors);
+      console.error("Validation errors:", CompiledDataPixelSchema.errors);
     }
   });
 
-  it("should invalidate an incorrect DataPixel object with out-of-range values", function () {
+  it("should invalidate a DataPixel object with an out-of-range index", function () {
     const invalidDataPixel = {
-      index: 300, // invalid index, out of range
-      R: 256, // invalid R value, out of uint8 range
+      index: 300, // Invalid index, out of range
+      R: 100,
       G: 150,
       B: 200,
-      A: 1, // invalid A value, should be 0
+      A: 0,
     };
 
-    const isValid = validateDataPixel(invalidDataPixel);
+    const isValid = CompiledDataPixelSchema(invalidDataPixel);
     expect(isValid).to.be.false;
-    expect(validateDataPixel.errors).to.not.be.null;
+    expect(CompiledDataPixelSchema.errors).to.not.be.null;
     if (isValid) {
-      console.log("Validation errors:", validatePixelArray.errors);
+      console.error("Validation errors for out-of-range index:", CompiledDataPixelSchema.errors);
     }
+  });
+
+  it("should invalidate a DataPixel object with an out-of-range R value", function () {
+    const invalidDataPixel = {
+      index: 50,
+      R: 256, // Invalid R value, out of uint8 range
+      G: 150,
+      B: 200,
+      A: 0,
+    };
+
+    const isValid = CompiledDataPixelSchema(invalidDataPixel);
+    expect(isValid).to.be.false;
+    if (isValid) {
+      console.error("Validation errors for out-of-range R value:", CompiledDataPixelSchema.errors);
+    }
+    expect(CompiledDataPixelSchema.errors).to.not.be.null;
+  });
+
+  it("should invalidate a DataPixel object with an out-of-range G value", function () {
+    const invalidDataPixel = {
+      index: 50,
+      R: 100,
+      G: 300, // Invalid G value, out of uint8 range
+      B: 200,
+      A: 0,
+    };
+
+    const isValid = CompiledDataPixelSchema(invalidDataPixel);
+    expect(isValid).to.be.false;
+    if (isValid) {
+      console.error("Validation errors for out-of-range G value:", CompiledDataPixelSchema.errors);
+    }
+    expect(CompiledDataPixelSchema.errors).to.not.be.null;
+  });
+
+  it("should invalidate a DataPixel object with an out-of-range B value", function () {
+    const invalidDataPixel = {
+      index: 50,
+      R: 100,
+      G: 150,
+      B: 256, // Invalid B value, out of uint8 range
+      A: 0,
+    };
+
+    const isValid = CompiledDataPixelSchema(invalidDataPixel);
+    expect(isValid).to.be.false;
+    if (isValid) {
+      console.error("Validation errors for out-of-range B value:", CompiledDataPixelSchema.errors);
+    }
+    expect(CompiledDataPixelSchema.errors).to.not.be.null;
+  });
+
+  it("should invalidate a DataPixel object with a non-zero A value", function () {
+    const invalidDataPixel = {
+      index: 50,
+      R: 100,
+      G: 150,
+      B: 200,
+      A: 1, // Invalid A value, must be 0 for data pixels
+    };
+
+    const isValid = CompiledDataPixelSchema(invalidDataPixel);
+    expect(isValid).to.be.false;
+    if (isValid) {
+      console.error("Validation errors for non-zero A value:", CompiledDataPixelSchema.errors);
+    }
+    expect(CompiledDataPixelSchema.errors).to.not.be.null;
+  });
+
+  it("should invalidate a DataPixel object with missing required properties", function () {
+    const invalidDataPixel = {
+      index: 50,
+      R: 100,
+      G: 150,
+      // B property is missing
+      A: 0,
+    };
+
+    const isValid = CompiledDataPixelSchema(invalidDataPixel);
+    expect(isValid).to.be.false;
+    if (isValid) {
+      console.error("Validation errors for missing required property:", CompiledDataPixelSchema.errors);
+    }
+    expect(CompiledDataPixelSchema.errors).to.not.be.null;
+  });
+
+  it("should invalidate a DataPixel object with additional properties", function () {
+    const invalidDataPixel = {
+      index: 50,
+      R: 100,
+      G: 150,
+      B: 200,
+      A: 0,
+      extraProperty: "not allowed", // Additional property not allowed
+    };
+
+    const isValid = CompiledDataPixelSchema(invalidDataPixel);
+    expect(isValid).to.be.false;
+    if (isValid) {
+      console.error("Validation errors for additional property:", CompiledDataPixelSchema.errors);
+    }
+    expect(CompiledDataPixelSchema.errors).to.not.be.null;
   });
 });

@@ -1,4 +1,4 @@
-# property-loader
+2# property-loader
 
 Property Loader for Dungeon Crawler game incorporating elements of AI and the blockchain.
 
@@ -11,8 +11,8 @@ Property Loader for Dungeon Crawler game incorporating elements of AI and the bl
 ## Encoding Rules 100 data pixels in total for encoded data
 ### Sprite Characteristics and Behaviours (first 40 free data pixel slots)
 - **R Channel:** Characteristic/Behaviour Index
-- **G Channel:** Property Index or Current Value
-- **B Channel:** Max Value (for continuous characteristics, set to Property Index for discrete characteristics)
+- **G Channel:** Property Index
+- **B Channel:** Value (for continuous characteristics, set to Property Index for discrete characteristics)
 
 ### Sprite Item Inventory (next 40 free data pixel slots, items, spells)
 - **R Channel:** Characteristic Index
