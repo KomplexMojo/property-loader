@@ -2,7 +2,7 @@ import Ajv from "ajv";
 import addErrors from "ajv-errors";
 
 // Import the IndexRangeRegistry
-import IndexRangeRegistry from "./indexRangeRegistry.js";
+import IndexRangeRegistry from "./indexregistry.js";
 
 // Initialize AJV
 const ajv = new Ajv({ allErrors: true });
@@ -10,14 +10,14 @@ const ajv = new Ajv({ allErrors: true });
 addErrors(ajv);
 
 // Get the start and end values for appearances from the IndexRangeRegistry
-const { start: triggerStart, end: triggerEnd } = IndexRangeRegistry.triggers;
+const { start: triggerStart, end: triggerEnd } = IndexRangeRegistry.triggerRange;
 
 const TriggerIndexSchema = {
   $schema: "http://json-schema.org/draft-07/schema#",
   $id: "http://example.com/schemas/trigger.index.json",
   type: "object",
   properties: {
-    index: {
+    value: {
       type: "integer",
       minimum: triggerStart,
       maximum: triggerEnd,
@@ -30,7 +30,7 @@ const TriggerIndexSchema = {
       },
     },
   },
-  required: ["index"],
+  required: ["value"],
   additionalProperties: false,
   errorMessage: {
     required: {

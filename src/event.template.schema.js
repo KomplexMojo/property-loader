@@ -2,27 +2,31 @@
 
 import Ajv from "ajv";
 import addErrors from "ajv-errors";
+import IndexRangeRegistry from "./indexregistry.js";
 
-// supporting schemas
+// index schemas
 import { TriggerIndexSchema } from "./trigger.index.schema.js";
 import { EffectIndexSchema } from "./effect.index.schema.js";
 import { ConditionIndexSchema } from "./condition.index.schema.js";
 
-// main schemas
+// definition schemas
 import { HeaderDefinitionSchema } from "./header.definition.schema.js";
-import { ProfileDefaultSchema } from "./profiledefault.definition.schema.js";
-import { TriggerInstanceSchema } from "./trigger.instance.json.js";
-import { EffectInstanceSchema } from "./effect.instance.json.js";
-import { ConditionInstanceSchema } from "./condition.instance.json.js";
+import { ProfileDefaultDefinitionSchema } from "./profiledefault.definition.schema.js";
+
+// instance schemas
+import { TriggerInstanceSchema } from "./trigger.instance.schema.js";
+import { EffectInstanceSchema } from "./effect.instance.schema.js";
+import { ConditionInstanceSchema } from "./condition.instance.schema.js";
+import { PropertyInstanceSchema } from "./property.instance.schema.js";
 
 // Initialize AJV
 const ajv = new Ajv({ allErrors: true });
 addErrors(ajv);
 
 // add ranges for 
-const { start: triggerStart, end: triggerEnd } = IndexRangeRegistry.triggers;
-const { start: effectStart, end: effectEnd } = IndexRangeRegistry.effects;
-const { start: conditionStart, end: conditionEnd } = IndexRangeRegistry.conditions;
+const { start: triggerStart, end: triggerEnd } = IndexRangeRegistry.triggerRange;
+const { start: effectStart, end: effectEnd } = IndexRangeRegistry.eventRange;
+const { start: conditionStart, end: conditionEnd } = IndexRangeRegistry.conditionRange;
 
 // Calculate maxItems dynamically
 const triggersMaxItems = triggerEnd - triggerStart + 1;
@@ -35,8 +39,10 @@ ajv.addSchema(EffectIndexSchema, "http://example.com/schemas/effect.index.json")
 ajv.addSchema(ConditionIndexSchema, "http://example.com/schemas/condition.index.json");
 
 // schemas that are directly used.
-ajv.addSchema(HeaderDefinitionSchema, "http://example.com/schemas/header.defintion.json");
-ajv.addSchema(ProfileDefaultSchema, "http://example.com/schemas/header.defintion.json");
+
+ajv.addSchema(HeaderDefinitionSchema, "http://example.com/schemas/header.definition.json");
+ajv.addSchema(ProfileDefaultDefinitionSchema, "http://example.com/schemas/profiledefault.definition.json");
+ajv.addSchema(PropertyInstanceSchema, "http://example.com/schemas/property.instance.json");
 ajv.addSchema(TriggerInstanceSchema, "http://example.com/schemas/trigger.instance.json");
 ajv.addSchema(EffectInstanceSchema, "http://example.com/schemas/effect.instance.json");
 ajv.addSchema(ConditionInstanceSchema, "http://example.com/schemas/condition.instance.json");
@@ -48,14 +54,14 @@ const EventTemplateSchema = {
   type: "object",
   properties: {
     header: {
-      $ref: "http://example.com/schemas/header.json",
+      $ref: "http://example.com/schemas/header.definition.json",
       errorMessage: "The 'header' must be a valid event header.",
     },
     defaults: {
       type: "array",
       minItems: 1,
       maxItems: 10,
-      items: { $ref: "http://example.com/schemas/profile.default.json" },
+      items: { $ref: "http://example.com/schemas/profiledefault.definition.json" },
       errorMessage: {
         type: "The 'defaults' must be an array.",
         minItems: "The 'defaults' must have at least 0 items.",

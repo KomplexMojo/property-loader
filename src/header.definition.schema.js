@@ -1,32 +1,43 @@
 import Ajv from "ajv";
-import addFormats from "ajv-formats";
 import addErrors from "ajv-errors";
-import addKeywords from "ajv-keywords";
-import { HeaderDefinitionSchemaDefinition } from "./headerdefinition.schema";
+import IndexRangeRegistry from "./indexregistry.js";
 
 // Initialize AJV
 const ajv = new Ajv({ allErrors: true });
 
-addFormats(ajv);
-addErrors(ajv);
-addKeywords(ajv);
 
-ajv.addSchema(HeaderDefinitionSchemaDefinition, "http://example.com/schemas/header.definition.json");
+const { start: namePropertyStart, end: namePropertyEnd } = IndexRangeRegistry.namePropertyRange;
+const { start: descriptionPropertyStart, end: descriptionPropertyEnd } = IndexRangeRegistry.descriptionPropertyRange;
+
+const maxNameLength = namePropertyEnd + 1 - namePropertyStart;
+const maxDescriptionLength = descriptionPropertyEnd + 1 - descriptionPropertyStart;
+
+addErrors(ajv);
 
 const HeaderDefinitionSchema = {
   type: "object",
-  $id: "http://example.com/schemas/header.json",
+  $id: "http://example.com/schemas/header.definition.json",
   properties: {
-    index: {
-      type: "integer",
-      range: [0, 255],
-      description: "Unique index for the header, must be within the valid range for a u8 value."
+    name: {
+      type: "string",
+      maxLength: maxNameLength,
+      description: "Name of the header.",
+      errorMessage: {
+        type: "The 'name' must be a string.",
+        maxLength: `The 'name' must not exceed ${maxNameLength} characters.`,
+      },
     },
-    header: {
-      $ref: "http://example.com/schemas/header.defintion.json"
-    }
+    description: {
+      type: "string",
+      maxLength: maxDescriptionLength,
+      description: "Description of the header.",
+      errorMessage: {
+        type: "The 'description' must be a string.",
+        maxLength: `The 'description' must not exceed ${maxDescriptionLength}.`,
+      },
+    },
   },
-  required: ["index"],
+  required: ["name", "description"],
   additionalProperties: false,
 }
 

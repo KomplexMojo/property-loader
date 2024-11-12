@@ -8,7 +8,7 @@ describe("Condition Index Schema Validation", function () {
   
   it("should validate a correct Condition Index object", function () {
     const validConditionIndex = {
-      index: conditionStart, // Valid index within the condition range
+      value: conditionStart, // Valid index within the condition range
     };
 
     const isValid = CompiledConditionIndexSchema(validConditionIndex);
@@ -18,7 +18,7 @@ describe("Condition Index Schema Validation", function () {
 
   it("should invalidate when the index is out of the valid range (too low)", function () {
     const invalidConditionIndex = {
-      index: conditionStart - 1, // Below valid range
+      value: conditionStart - 1, // Below valid range
     };
 
     const isValid = CompiledConditionIndexSchema(invalidConditionIndex);
@@ -30,7 +30,7 @@ describe("Condition Index Schema Validation", function () {
 
   it("should invalidate when the index is out of the valid range (too high)", function () {
     const invalidConditionIndex = {
-      index: conditionEnd + 1, // Above valid range
+      value: conditionEnd + 1, // Above valid range
     };
 
     const isValid = CompiledConditionIndexSchema(invalidConditionIndex);
@@ -48,13 +48,13 @@ describe("Condition Index Schema Validation", function () {
     const isValid = CompiledConditionIndexSchema(invalidConditionIndex);
     expect(isValid).to.be.false;
     if (CompiledConditionIndexSchema.errors) {
-      console.error("Validation errors for missing index:", CompiledConditionIndexSchema.errors);
+      console.error("Validation errors for missing value:", CompiledConditionIndexSchema.errors);
     }
   });
 
   it("should invalidate when additional properties are present", function () {
     const invalidConditionIndex = {
-      index: conditionStart,
+      value: conditionStart,
       extraProperty: "Not allowed", // Additional property not allowed
     };
 
@@ -67,13 +67,13 @@ describe("Condition Index Schema Validation", function () {
 
   it("should invalidate when the index is not an integer", function () {
     const invalidConditionIndex = {
-      index: "notAnInteger", // Invalid type
+      value: "notAnInteger", // Invalid type
     };
 
     const isValid = CompiledConditionIndexSchema(invalidConditionIndex);
     expect(isValid).to.be.false;
     if (CompiledConditionIndexSchema.errors) {
-      console.error("Validation errors for non-integer index:", CompiledConditionIndexSchema.errors);
+      console.error("Validation errors for non-integer value:", CompiledConditionIndexSchema.errors);
     }
   });
 });

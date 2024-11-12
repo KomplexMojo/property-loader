@@ -2,10 +2,17 @@
 
 import Ajv from "ajv";
 import addErrors from "ajv-errors";
+import IndexRangeRegistry from "../src/indexregistry.js";
 
 // Initialize AJV
 const ajv = new Ajv({ allErrors: true });
 addErrors(ajv);
+
+const { start: namePropertyStart, end: namePropertyEnd } = IndexRangeRegistry.namePropertyRange;
+const { start: descriptionPropertyStart, end: descriptionPropertyEnd } = IndexRangeRegistry.descriptionPropertyRange;
+
+const maxNameLength = namePropertyEnd + 1 - namePropertyStart;
+const maxDescriptionLength = descriptionPropertyEnd + 1 - descriptionPropertyStart;
 
 // Define the PropertyDefinition schema with error handling
 const PropertyDefinitionSchema = {
@@ -26,7 +33,7 @@ const PropertyDefinitionSchema = {
     },
     name: {
       type: "string",
-      maxLength: 64,
+      maxLength: maxNameLength,
       description: "Name of the property.",
       errorMessage: {
         type: "The 'name' must be a string.",
@@ -44,7 +51,7 @@ const PropertyDefinitionSchema = {
     },
     description: {
       type: "string",
-      maxLength: 256,
+      maxLength: maxDescriptionLength,
       description: "Description of the property.",
       errorMessage: {
         type: "The 'description' must be a string.",

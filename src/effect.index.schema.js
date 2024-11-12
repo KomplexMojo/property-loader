@@ -2,7 +2,7 @@ import Ajv from "ajv";
 import addErrors from "ajv-errors";
 
 // Import the IndexRangeRegistry
-import IndexRangeRegistry from "./indexRangeRegistry.js";
+import IndexRangeRegistry from "./indexregistry.js";
 
 // Initialize AJV
 const ajv = new Ajv({ allErrors: true });
@@ -10,14 +10,14 @@ const ajv = new Ajv({ allErrors: true });
 addErrors(ajv);
 
 // Get the start and end values for appearances from the IndexRangeRegistry
-const { start: effectStart, end: effectEnd } = IndexRangeRegistry.effects;
+const { start: effectStart, end: effectEnd } = IndexRangeRegistry.effectRange;
 
 const EffectIndexSchema = {
   $schema: "http://json-schema.org/draft-07/schema#",
   $id: "http://example.com/schemas/effect.index.json",
   type: "object",
   properties: {
-    index: {
+    value: {
       type: "integer",
       minimum: effectStart,
       maximum: effectEnd,
@@ -30,7 +30,7 @@ const EffectIndexSchema = {
       },
     },
   },
-  required: ["index"],
+  required: ["value"],
   additionalProperties: false,
   errorMessage: {
     required: {

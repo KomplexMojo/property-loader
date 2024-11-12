@@ -16,7 +16,7 @@ const ConditionIndexSchema = {
   $id: "http://example.com/schemas/condition.index.json",
   type: "object",
   properties: {
-    index: {
+    value: {
       type: "integer",
       minimum: conditionStart,
       maximum: conditionEnd,
@@ -28,7 +28,7 @@ const ConditionIndexSchema = {
       },
     },
   },
-  required: ["index"],
+  required: ["value"],
   additionalProperties: false,
   errorMessage: {
     required: {

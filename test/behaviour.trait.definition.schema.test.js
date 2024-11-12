@@ -6,7 +6,7 @@ describe("Behaviour Trait Definition Schema Validation", function () {
   it("should validate a correct Behaviour Trait Definition object", function () {
     const validBehaviourTraitDefinition = {
       definition: {
-        index: { index: 90 }, // Within valid range for behaviours
+        index: { value: 90 }, // Within valid range for behaviours
         extension: {
           name: "Valid Behaviour Name",
           description: "A valid description for behaviour.",
@@ -28,7 +28,7 @@ describe("Behaviour Trait Definition Schema Validation", function () {
   it("should invalidate when behaviour index is out of range", function () {
     const invalidBehaviourTraitDefinition = {
       definition: {
-        index: { index: 140 }, // Out of range for behaviour index
+        index: { value: 140 }, // Out of range for behaviour index
         extension: {
           name: "Valid Behaviour Name",
           description: "A valid description.",
@@ -52,7 +52,7 @@ describe("Behaviour Trait Definition Schema Validation", function () {
   it("should invalidate when the default profile name exceeds the maximum length", function () {
     const invalidBehaviourTraitDefinition = {
       definition: {
-        index: { index: 90 },
+        index: { value: 90 },
         extension: {
           name: "Valid Behaviour Name",
           description: "A valid description.",
@@ -76,7 +76,7 @@ describe("Behaviour Trait Definition Schema Validation", function () {
   it("should invalidate when the value in default profile is out of range", function () {
     const invalidBehaviourTraitDefinition = {
       definition: {
-        index: { index: 90 },
+        index: { value: 90 },
         extension: {
           name: "Valid Behaviour Name",
           description: "A valid description.",
@@ -100,7 +100,7 @@ describe("Behaviour Trait Definition Schema Validation", function () {
   it("should invalidate when a required property is missing in the default profile", function () {
     const invalidBehaviourTraitDefinition = {
       definition: {
-        index: { index: 90 },
+        index: { value: 90 },
         extension: {
           name: "Valid Behaviour Name",
           description: "A valid description.",
@@ -123,7 +123,7 @@ describe("Behaviour Trait Definition Schema Validation", function () {
   it("should invalidate when additional properties are present in the default profile", function () {
     const invalidBehaviourTraitDefinition = {
       definition: {
-        index: { index: 90 },
+        index: { value: 90 },
         extension: {
           name: "Valid Behaviour Name",
           description: "A valid description.",

@@ -5,7 +5,7 @@ describe("Behaviour Index Schema Validation", function () {
   
   it("should validate a correct Behaviour Index object", function () {
     const validBehaviourIndex = {
-      index: 90
+      value: 90
     };
 
     const isValid = CompiledBehaviourIndexSchema(validBehaviourIndex);
@@ -15,7 +15,7 @@ describe("Behaviour Index Schema Validation", function () {
 
   it("should invalidate when the index is below the minimum range", function () {
     const invalidBehaviourIndex = {
-      index: 89 // Below the minimum of 90
+      value: 89 // Below the minimum of 90
     };
 
     const isValid = CompiledBehaviourIndexSchema(invalidBehaviourIndex);
@@ -27,7 +27,7 @@ describe("Behaviour Index Schema Validation", function () {
 
   it("should invalidate when the index is above the maximum range", function () {
     const invalidBehaviourIndex = {
-      index: 140 // Above the maximum of 139
+      value: 140 // Above the maximum of 139
     };
 
     const isValid = CompiledBehaviourIndexSchema(invalidBehaviourIndex);
@@ -39,13 +39,13 @@ describe("Behaviour Index Schema Validation", function () {
 
   it("should invalidate when the index is not an integer", function () {
     const invalidBehaviourIndex = {
-      index: "ninety" // Not an integer
+      value: "ninety" // Not an integer
     };
 
     const isValid = CompiledBehaviourIndexSchema(invalidBehaviourIndex);
     expect(isValid).to.be.false;
     if (CompiledBehaviourIndexSchema.errors) {
-      console.error("Validation errors for non-integer index:", CompiledBehaviourIndexSchema.errors);
+      console.error("Validation errors for non-integer value:", CompiledBehaviourIndexSchema.errors);
     }
   });
 
@@ -63,7 +63,7 @@ describe("Behaviour Index Schema Validation", function () {
 
   it("should invalidate when additional properties are present", function () {
     const invalidBehaviourIndex = {
-      index: 90,
+      value: 90,
       extraProperty: "Not allowed" // Additional property not allowed
     };
 

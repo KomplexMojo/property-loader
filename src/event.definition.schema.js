@@ -2,7 +2,7 @@
 
 import Ajv from "ajv";
 import addErrors from "ajv-errors";
-import { EventIndexSchemaDefinition } from "./event.index.schema.js";
+import { EventIndexSchema } from "./event.index.schema.js";
 import { DefinitionExtensionSchema } from "./definition.extension.schema.js";
 
 // Initialize AJV
@@ -10,7 +10,7 @@ const ajv = new Ajv({ allErrors: true });
 
 addErrors(ajv);
 
-ajv.addSchema(EventIndexSchemaDefinition, "http://example.com/schemas/event.index.json");
+ajv.addSchema(EventIndexSchema, "http://example.com/schemas/event.index.json");
 ajv.addSchema(DefinitionExtensionSchema, "http://example.com/schemas/definition.extension.json");
 
 const EventDefinitionSchema = {

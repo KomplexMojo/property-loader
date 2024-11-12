@@ -14,7 +14,7 @@ const CharacteristicIndexSchema = {
   $id: "http://example.com/schemas/characteristic.index.json",
   type: "object",
   properties: {
-    index: {
+    value: {
       type: "integer",
       minimum: characteristicStart,
       maximum: characteristicEnd,
@@ -26,7 +26,7 @@ const CharacteristicIndexSchema = {
       },
     },
   },
-  required: ["index"],
+  required: ["value"],
   additionalProperties: false,
   errorMessage: {
     required: {

@@ -5,7 +5,7 @@ describe("Characteristics Definition Schema Validation", function () {
   
   it("should validate a correct Characteristics Definition object", function () {
     const validCharacteristicsDefinition = {
-      index: { index: 45 }, // Within valid range for characteristics
+      index: { value: 45 }, // Within valid range for characteristics
       extension: {
         name: "Valid Name",
         description: "A valid description.",
@@ -20,7 +20,7 @@ describe("Characteristics Definition Schema Validation", function () {
 
   it("should invalidate when the index is out of the valid range", function () {
     const invalidCharacteristicsDefinition = {
-      index: { index: 90 }, // Out of valid range for characteristics
+      index: { value: 90 }, // Out of valid range for characteristics
       extension: {
         name: "Valid Name",
         description: "A valid description.",
@@ -37,7 +37,7 @@ describe("Characteristics Definition Schema Validation", function () {
 
   it("should invalidate when the extension name exceeds max length", function () {
     const invalidCharacteristicsDefinition = {
-      index: { index: 45 },
+      index: { value: 45 },
       extension: {
         name: "A".repeat(65), // Exceeds 64 character max length
         description: "A valid description.",
@@ -54,7 +54,7 @@ describe("Characteristics Definition Schema Validation", function () {
 
   it("should invalidate when the extension description exceeds max length", function () {
     const invalidCharacteristicsDefinition = {
-      index: { index: 45 },
+      index: { value: 45 },
       extension: {
         name: "Valid Name",
         description: "D".repeat(257), // Exceeds 256 character max length
@@ -71,7 +71,7 @@ describe("Characteristics Definition Schema Validation", function () {
 
   it("should invalidate when the extension value is out of range", function () {
     const invalidCharacteristicsDefinition = {
-      index: { index: 45 },
+      index: { value: 45 },
       extension: {
         name: "Valid Name",
         description: "A valid description.",
@@ -88,7 +88,7 @@ describe("Characteristics Definition Schema Validation", function () {
 
   it("should invalidate when required properties are missing", function () {
     const invalidCharacteristicsDefinition = {
-      index: { index: 45 },
+      index: { value: 45 },
       extension: {
         name: "Valid Name",
         // Missing 'description' property
@@ -105,7 +105,7 @@ describe("Characteristics Definition Schema Validation", function () {
 
   it("should invalidate when additional properties are present", function () {
     const invalidCharacteristicsDefinition = {
-      index: { index: 45 },
+      index: { value: 45 },
       extension: {
         name: "Valid Name",
         description: "A valid description.",

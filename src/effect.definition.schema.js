@@ -2,8 +2,8 @@
 
 import Ajv from "ajv";
 import addErrors from "ajv-errors";
-import { EffectIndexSchema } from "./effect.index.schema";
-import { DefinitionExtensionSchema } from "./definition.extension.schema";
+import { EffectIndexSchema } from "./effect.index.schema.js";
+import { DefinitionExtensionSchema } from "./definition.extension.schema.js";
 
 // Initialize AJV
 const ajv = new Ajv({ allErrors: true });
@@ -15,7 +15,7 @@ ajv.addSchema(DefinitionExtensionSchema, "http://example.com/schemas/definition.
 
 const EffectDefinitionSchema = {
   $schema: "http://json-schema.org/draft-07/schema#",
-  $id: "http://example.com/schemas/effecth.defintion.json",
+  $id: "http://example.com/schemas/effect.defintion.json",
   type: "object",
   properties: {
     index: { $ref: "http://example.com/schemas/effect.index.json" },

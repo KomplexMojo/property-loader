@@ -6,7 +6,7 @@ describe("Characteristic Trait Definition Schema Validation", function () {
   it("should validate a correct Characteristic Trait Definition object", function () {
     const validCharacteristicTraitDefinition = {
       definition: {
-        index: { index: 45 }, // Valid index for characteristic range
+        index: { value: 45 }, // Valid index for characteristic range
         extension: {
           name: "Valid Name",
           description: "A valid description.",
@@ -28,7 +28,7 @@ describe("Characteristic Trait Definition Schema Validation", function () {
   it("should invalidate when the characteristic index is out of range", function () {
     const invalidCharacteristicTraitDefinition = {
       definition: {
-        index: { index: 90 }, // Out of range for characteristic index
+        index: { value: 90 }, // Out of range for characteristic index
         extension: {
           name: "Valid Name",
           description: "A valid description.",
@@ -52,7 +52,7 @@ describe("Characteristic Trait Definition Schema Validation", function () {
   it("should invalidate when the extension value exceeds maximum range", function () {
     const invalidCharacteristicTraitDefinition = {
       definition: {
-        index: { index: 45 },
+        index: { value: 45 },
         extension: {
           name: "Valid Name",
           description: "A valid description.",
@@ -76,7 +76,7 @@ describe("Characteristic Trait Definition Schema Validation", function () {
   it("should invalidate when required properties are missing in defaults", function () {
     const invalidCharacteristicTraitDefinition = {
       definition: {
-        index: { index: 45 },
+        index: { value: 45 },
         extension: {
           name: "Valid Name",
           description: "A valid description.",
@@ -100,7 +100,7 @@ describe("Characteristic Trait Definition Schema Validation", function () {
   it("should invalidate when additional properties are present", function () {
     const invalidCharacteristicTraitDefinition = {
       definition: {
-        index: { index: 45 },
+        index: { value: 45 },
         extension: {
           name: "Valid Name",
           description: "A valid description.",
@@ -142,7 +142,7 @@ describe("Characteristic Trait Definition Schema Validation", function () {
   it("should invalidate when the 'defaults' property is missing", function () {
     const invalidCharacteristicTraitDefinition = {
       definition: {
-        index: { index: 45 },
+        index: { value: 45 },
         extension: {
           name: "Valid Name",
           description: "A valid description.",

@@ -5,7 +5,7 @@ describe("Condition Instance Schema Validation", function () {
   
   it("should validate a correct Condition Instance object", function () {
     const validConditionInstance = {
-      index: { index: 224 }, // Assuming this is within the condition index range
+      index: { value: 224 }, // Assuming this is within the condition index range
       primary: { value: 10 }, // Within the property value range
       secondary: { value: 20 } // Within the property value range
     };
@@ -17,7 +17,7 @@ describe("Condition Instance Schema Validation", function () {
 
   it("should invalidate when the index is out of the valid range", function () {
     const invalidConditionInstance = {
-      index: { index: 300 }, // Out of range for condition index
+      index: { value: 300 }, // Out of range for condition index
       primary: { value: 10 },
       secondary: { value: 20 }
     };
@@ -31,7 +31,7 @@ describe("Condition Instance Schema Validation", function () {
 
   it("should invalidate when primary is missing", function () {
     const invalidConditionInstance = {
-      index: { index: 224 },
+      index: { value: 224 },
       // Missing primary
       secondary: { value: 20 }
     };
@@ -45,7 +45,7 @@ describe("Condition Instance Schema Validation", function () {
 
   it("should invalidate when secondary is missing", function () {
     const invalidConditionInstance = {
-      index: { index: 224 },
+      index: { value: 224 },
       primary: { value: 10 },
       // Missing secondary
     };
@@ -59,7 +59,7 @@ describe("Condition Instance Schema Validation", function () {
 
   it("should invalidate when primary value is out of range", function () {
     const invalidConditionInstance = {
-      index: { index: 224 },
+      index: { value: 224 },
       primary: { value: 300 }, // Out of range for property value
       secondary: { value: 20 }
     };
@@ -73,7 +73,7 @@ describe("Condition Instance Schema Validation", function () {
 
   it("should invalidate when secondary value is out of range", function () {
     const invalidConditionInstance = {
-      index: { index: 224 },
+      index: { value: 224 },
       primary: { value: 10 },
       secondary: { value: 300 } // Out of range for property value
     };
@@ -87,7 +87,7 @@ describe("Condition Instance Schema Validation", function () {
 
   it("should invalidate when additional properties are present", function () {
     const invalidConditionInstance = {
-      index: { index: 224 },
+      index: { value: 224 },
       primary: { value: 10 },
       secondary: { value: 20 },
       extraProperty: "not allowed" // Additional property not allowed

@@ -15,7 +15,7 @@ const profileDefaultsMaxItems = profileDefaultsEnd - profileDefaultsStart +1;
 // Define the DataPixel schema with error handling
 const ProfileDefaultDefinitionSchema = {
   $schema: "http://json-schema.org/draft-07/schema#",
-  $id: "http://example.com/schemas/profile.default.json",
+  $id: "http://example.com/schemas/profiledefault.definiton.json",
   type: "object",
   properties: {
     index: {
@@ -71,6 +71,6 @@ const ProfileDefaultDefinitionSchema = {
   },
 };
 
-const CompiledDefaultProfileSchema = ajv.compile(ProfileDefaultDefinitionSchema);
+const CompiledProfileDefaultSchema = ajv.compile(ProfileDefaultDefinitionSchema);
 
-export { CompiledDefaultProfileSchema, ProfileDefaultDefinitionSchema };
+export { CompiledProfileDefaultSchema, ProfileDefaultDefinitionSchema };

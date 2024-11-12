@@ -5,7 +5,7 @@ describe("Condition Definition Schema Validation", function () {
   
   it("should validate a correct Condition Definition object", function () {
     const validConditionDefinition = {
-      index: { index: 224 }, // Valid index within condition range
+      index: { value: 224 }, // Valid index within condition range
       extension: {
         name: "Valid Condition Name",
         description: "A valid description within length limit.",
@@ -20,7 +20,7 @@ describe("Condition Definition Schema Validation", function () {
 
   it("should invalidate when the condition index is out of range", function () {
     const invalidConditionDefinition = {
-      index: { index: 300 }, // Out of range for condition index
+      index: { value: 300 }, // Out of range for condition index
       extension: {
         name: "Valid Condition Name",
         description: "A valid description within length limit.",
@@ -37,7 +37,7 @@ describe("Condition Definition Schema Validation", function () {
 
   it("should invalidate when the extension name exceeds maximum length", function () {
     const invalidConditionDefinition = {
-      index: { index: 224 },
+      index: { value: 224 },
       extension: {
         name: "A".repeat(65), // Exceeds 64 character max length
         description: "A valid description.",
@@ -54,7 +54,7 @@ describe("Condition Definition Schema Validation", function () {
 
   it("should invalidate when the extension description exceeds maximum length", function () {
     const invalidConditionDefinition = {
-      index: { index: 224 },
+      index: { value: 224 },
       extension: {
         name: "Valid Condition Name",
         description: "D".repeat(257), // Exceeds 256 character max length
@@ -71,7 +71,7 @@ describe("Condition Definition Schema Validation", function () {
 
   it("should invalidate when the extension value is out of valid range", function () {
     const invalidConditionDefinition = {
-      index: { index: 224 },
+      index: { value: 224 },
       extension: {
         name: "Valid Condition Name",
         description: "A valid description.",
@@ -88,7 +88,7 @@ describe("Condition Definition Schema Validation", function () {
 
   it("should invalidate when a required property is missing", function () {
     const invalidConditionDefinition = {
-      index: { index: 224 },
+      index: { value: 224 },
       extension: {
         name: "Valid Condition Name",
         // Missing 'description' property
@@ -105,7 +105,7 @@ describe("Condition Definition Schema Validation", function () {
 
   it("should invalidate when additional properties are present", function () {
     const invalidConditionDefinition = {
-      index: { index: 224 },
+      index: { value: 224 },
       extension: {
         name: "Valid Condition Name",
         description: "A valid description.",
@@ -140,7 +140,7 @@ describe("Condition Definition Schema Validation", function () {
 
   it("should invalidate when the 'extension' property is missing", function () {
     const invalidConditionDefinition = {
-      index: { index: 224 }
+      index: { value: 224 }
       // Missing 'extension' property
     };
 

@@ -19,7 +19,7 @@ const BehaviourIndexSchema = {
   $id: "http://example.com/schemas/behaviour.index.json",
   type: "object",
   properties: {
-    index: {
+    value: {
       type: "integer",
       minimum: behaviourStart,
       maximum: behaviourEnd,
@@ -32,7 +32,7 @@ const BehaviourIndexSchema = {
       },
     },
   },
-  required: ["index"],
+  required: ["value"],
   additionalProperties: false,
   errorMessage: {
     required: {

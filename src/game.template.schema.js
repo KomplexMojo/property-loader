@@ -3,7 +3,7 @@ import addErrors from "ajv-errors";
 import IndexRangeRegistry from "./indexregistry.js";
 
 // index schemas
-import { AppearanceIndexSchema } from "./appearance.index.schema.js";
+import { VisualizationIndexSchema } from "./visualization.index.schema.js";
 import { BehaviourIndexSchema } from "./behaviour.index.schema.js";
 import { CharacteristicIndexSchema } from "./characteristic.index.schema.js";
 import { ConditionIndexSchema } from "./condition.index.schema.js";
@@ -12,7 +12,7 @@ import { EventIndexSchema } from "./event.index.schema.js";
 import { TriggerIndexSchema } from "./trigger.index.schema.js";
 
 // definition schemas
-import { AppearanceDefinitionSchema } from "./appearance.definition.schema.js";
+import { DefinitionExtensionSchema } from "./definition.extension.schema.js";
 import { BehaviourDefinitionSchema } from "./behaviour.definition.schema.js";
 import { CharacteristicDefinitionSchema } from "./characteristic.definition.schema.js";
 import { ConditionDefinitionSchema } from "./condition.definition.schema.js";
@@ -28,17 +28,18 @@ import { VisualizationDefinitionSchema } from "./visualization.definition.schema
 import { VisualPixelDefinitionSchema } from "./visualpixel.definition.schema.js";
 
 // instance schemas
-import { ConditionInstanceSchema } from "./condition.instance.json.js";
-import { EffectInstanceSchema } from "./effect.instance.json.js";
+import { ConditionInstanceSchema } from "./condition.instance.schema.js";
+import { EffectInstanceSchema } from "./effect.instance.schema.js";
 import { PropertyInstanceSchema } from "./property.instance.schema.js";
-import { TriggerInstanceSchema } from "./trigger.instance.json.js";
+import { TriggerInstanceSchema } from "./trigger.instance.schema.js";
 
 // trait schema
-import { BehaviourTraitDefinitionSchema } from "./behaviour.trait.definition.schema.json.js";
-import { CharacteristicTraitDefinitionSchema } from "./characteristic.trait.definition.schema.json.js";
+import { BehaviourTraitDefinitionSchema } from "./behaviour.trait.definition.schema.js";
+import { CharacteristicTraitDefinitionSchema } from "./characteristic.trait.definition.schema.js";
+import { VisualizationTraitDefinitionSchema } from "./visualization.trait.definition.schema.js";
 
 // add ranges for 
-const { start: appearanceStart, end: appearanceEnd } = IndexRangeRegistry.appearanceRange;
+const { start: visualizationStart, end: visualizationEnd } = IndexRangeRegistry.visualizationRange;
 const { start: characteristicsStart, end: characteristicsEnd } = IndexRangeRegistry.characteristicRange;
 const { start: behavioursStart, end: behavioursEnd } = IndexRangeRegistry.behaviourRange;
 const { start: eventsStart, end: eventsEnd } = IndexRangeRegistry.eventRange;
@@ -48,7 +49,7 @@ const { start: conditionStart, end: conditionEnd } = IndexRangeRegistry.conditio
 const { start: profileDefaultStart, end: profileDefaultEnd } = IndexRangeRegistry.profileDefaultsRange;
 
 // Calculate maxItems dynamically
-const appearanceMaxItems = appearanceEnd - appearanceStart + 1;
+const visualizationMaxItems = visualizationEnd - visualizationStart + 1;
 const characteristicMaxItems = characteristicsEnd - characteristicsStart + 1;
 const behaviourMaxItems = behavioursEnd - behavioursStart + 1;
 const eventMaxItems = eventsEnd - eventsStart + 1;
@@ -63,7 +64,7 @@ const ajv = new Ajv({ allErrors: true, strict: false });
 addErrors(ajv);
 
 // index schemas
-ajv.addSchema(AppearanceIndexSchema, "http://example.com/schemas/appearance.index.json");
+ajv.addSchema(VisualizationIndexSchema, "http://example.com/schemas/visualization.index.json");
 ajv.addSchema(BehaviourIndexSchema, "http://example.com/schemas/behaviour.index.json");
 ajv.addSchema(CharacteristicIndexSchema, "http://example.com/schemas/characteristic.index.json");
 ajv.addSchema(ConditionIndexSchema, "http://example.com/schemas/condition.index.json");
@@ -72,7 +73,8 @@ ajv.addSchema(EventIndexSchema, "http://example.com/schemas/event.index.json");
 ajv.addSchema(TriggerIndexSchema, "http://example.com/schemas/trigger.index.json");
 
 // definition schemas
-ajv.addSchema(AppearanceDefinitionSchema,"http://example.com/schemas/appearance.definition.json");
+ajv.addSchema(DefinitionExtensionSchema,"http://example.com/schemas/definition.extension.json");
+ajv.addSchema(VisualizationDefinitionSchema,"http://example.com/schemas/visualization.definition.json");
 ajv.addSchema(BehaviourDefinitionSchema,"http://example.com/schemas/behaviour.definition.json");
 ajv.addSchema(CharacteristicDefinitionSchema,"http://example.com/schemas/characteristic.definition.json");
 ajv.addSchema(ConditionDefinitionSchema,"http://example.com/schemas/condition.definition.json");
@@ -84,18 +86,18 @@ ajv.addSchema(PixelsDefinitionSchema,"http://example.com/schemas/pixels.definiti
 ajv.addSchema(ProfileDefaultDefinitionSchema,"http://example.com/schemas/profiledefault.definition.json");
 ajv.addSchema(PropertyDefinitionSchema,"http://example.com/schemas/property.definition.json");
 ajv.addSchema(TriggerDefinitionSchema,"http://example.com/schemas/trigger.definition.json");
-ajv.addSchema(VisualizationDefinitionSchema,"http://example.com/schemas/visualization.definition.json");
 ajv.addSchema(VisualPixelDefinitionSchema,"http://example.com/schemas/visualpixel.definition.json");
 
 // instance schemas
-ajv.addSchema(ConditionInstanceSchema,"http://example.com/schemas/condition.instance.json.json");
-ajv.addSchema(EffectInstanceSchema,"http://example.com/schemas/effect.instance.json.json");
+ajv.addSchema(ConditionInstanceSchema,"http://example.com/schemas/condition.instance.schema.json");
+ajv.addSchema(EffectInstanceSchema,"http://example.com/schemas/effect.instance.schema.json");
 ajv.addSchema(PropertyInstanceSchema,"http://example.com/schemas/property.instance.schema.json");
-ajv.addSchema(TriggerInstanceSchema,"http://example.com/schemas/trigger.instance.json.json");
+ajv.addSchema(TriggerInstanceSchema,"http://example.com/schemas/trigger.instance.schema.json");
 
 // trait schema
 ajv.addSchema(BehaviourTraitDefinitionSchema,"http://example.com/schemas/behaviour.trait.definition.schema.json");
 ajv.addSchema(CharacteristicTraitDefinitionSchema,"http://example.com/schemas/characteristic.trait.definition.schema.json");
+ajv.addSchema(VisualizationTraitDefinitionSchema,"http://example.com/schemas/visualization.trait.definition.schema.json");
 
 const GameSchema = {
     type: "object",
@@ -104,23 +106,23 @@ const GameSchema = {
         header: {
             $ref: "http://example.com/schemas/header.definition.json",
         },
-        appearances: {
+        visualizations: {
             type: "array",
             minItems: 0,
-            maxItems: appearanceMaxItems,
-            items: { $ref: "http://example.com/schemas/visual.definition.json" },
+            maxItems: visualizationMaxItems,
+            items: { $ref: "http://example.com/schemas/visualization.trait.definition.json" },
         },
         characteristics: {
             type: "array",
             minItems: 0,
             maxItems: characteristicMaxItems,
-            items: { $ref: "http://example.com/schemas/characteristics.trait.definition.json" },
+            items: { $ref: "http://example.com/schemas/characteristic.trait.definition.json" },
         },
         behaviours: {
             type: "array",
             minItems: 0,
             maxItems: behaviourMaxItems,
-            items: { $ref: "http://example.com/schemas/behaviours.trait.definition.json" },
+            items: { $ref: "http://example.com/schemas/behaviour.trait.definition.json" },
         },
         triggers: {
             type: "array",
@@ -147,7 +149,7 @@ const GameSchema = {
             items: { $ref: "http://example.com/schemas/event.definition.json" }
         },
     },
-    required: ["header", "appearances", "characteristics", "behaviours", "events"],
+    required: ["header", "visualizations", "characteristics", "effects", "behaviours", "events"],
     additionalProperties: false,
 };
 

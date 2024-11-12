@@ -1,36 +1,37 @@
+// visualizationheader.schema.js
+
 import Ajv from "ajv";
 import addErrors from "ajv-errors";
-import { PixelArraySchema } from "./pixels.definition.schema.js";
-
-import { HeaderDefinitionSchema } from "./header.definition.schema.js";
-import { DataPixelSchema } from "./datapixel.definition.schema.js";
-import { VisualPixelSchema } from "./visualpixel.definition.schema.js";
-import { PixelArraySchema } from "./pixels.definition.schema.js";
+import { VisualizationIndexSchema } from "./visualization.index.schema.js";
+import { DefinitionExtensionSchema } from "./definition.extension.schema.js";
 
 // Initialize AJV
 const ajv = new Ajv({ allErrors: true });
+
 addErrors(ajv);
 
-// Add DataPixel and VisualPixel schemas to AJV registry
-
-ajv.addSchema(HeaderDefinitionSchema, "http://example.com/schemas/header.json");
-ajv.addSchema(DataPixelSchema, "http://example.com/schemas/datapixel.json");
-ajv.addSchema(VisualPixelSchema, "http://example.com/schemas/visualpixel.json");
-ajv.addSchema(PixelArraySchema, "http://example.com/schemas/pixel.array.json");
+ajv.addSchema(VisualizationIndexSchema, "http://example.com/schemas/visualization.index.json");
+ajv.addSchema(DefinitionExtensionSchema, "http://example.com/schemas/definition.extensions.json");
 
 const VisualizationDefinitionSchema = {
-  type: "object",
+  $schema: "http://json-schema.org/draft-07/schema#",
   $id: "http://example.com/schemas/visualization.definition.json",
+  type: "object",
   properties: {
-    header: { $ref: "http://example.com/schemas/header.json" },
-    pixels: { $ref: "http://example.com/schemas/pixel.array.json" }
+    index: { $ref: "http://example.com/schemas/visualization.index.json" },
+    extension: { $ref: "http://example.com/schemas/definition.extension.json" }
   },
-  required: ["header", "pixels"],
+  required: ["index", "extension"],
   additionalProperties: false,
-};
+  errorMessage: {
+    required: {
+      index: "The 'index' property is required.",
+      extension: "The 'extension' property is required."
+    },
+    additionalProperties: "No additional properties are allowed in the object.",
+  }
+}
 
-// Compile the schema with custom validation
-const CompiledVisualizationSchema = ajv.compile(VisualizationDefinitionSchema);
+const CompiledVisualizationDefinitionSchema = ajv.compile(VisualizationDefinitionSchema);
 
-// Export the schema and validation function
-export { CompiledVisualizationSchema, VisualizationDefinitionSchema };
+export { CompiledVisualizationDefinitionSchema, VisualizationDefinitionSchema };

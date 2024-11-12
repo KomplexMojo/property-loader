@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { CompiledDefaultProfileSchema } from "../src/profiledefault.definition.schema.js";
+import { CompiledProfileDefaultSchema } from "../src/profiledefault.definition.schema.js";
 
 describe("Profile Default Definition Schema Validation", function () {
   
@@ -10,9 +10,9 @@ describe("Profile Default Definition Schema Validation", function () {
       value: 42,
     };
 
-    const isValid = CompiledDefaultProfileSchema(validProfileDefault);
+    const isValid = CompiledProfileDefaultSchema(validProfileDefault);
     expect(isValid).to.be.true;
-    expect(CompiledDefaultProfileSchema.errors).to.be.null;
+    expect(CompiledProfileDefaultSchema.errors).to.be.null;
   });
 
   it("should validate a correct Profile Default object with boolean value", function () {
@@ -22,9 +22,9 @@ describe("Profile Default Definition Schema Validation", function () {
       value: true,
     };
 
-    const isValid = CompiledDefaultProfileSchema(validProfileDefault);
+    const isValid = CompiledProfileDefaultSchema(validProfileDefault);
     expect(isValid).to.be.true;
-    expect(CompiledDefaultProfileSchema.errors).to.be.null;
+    expect(CompiledProfileDefaultSchema.errors).to.be.null;
   });
 
   it("should invalidate when index is out of range", function () {
@@ -34,10 +34,10 @@ describe("Profile Default Definition Schema Validation", function () {
       value: 100,
     };
 
-    const isValid = CompiledDefaultProfileSchema(invalidProfileDefault);
+    const isValid = CompiledProfileDefaultSchema(invalidProfileDefault);
     expect(isValid).to.be.false;
-    if (CompiledDefaultProfileSchema.errors) {
-      console.error("Validation errors for out-of-range index:", CompiledDefaultProfileSchema.errors);
+    if (CompiledProfileDefaultSchema.errors) {
+      console.error("Validation errors for out-of-range index:", CompiledProfileDefaultSchema.errors);
     }
   });
 
@@ -48,10 +48,10 @@ describe("Profile Default Definition Schema Validation", function () {
       value: 100,
     };
 
-    const isValid = CompiledDefaultProfileSchema(invalidProfileDefault);
+    const isValid = CompiledProfileDefaultSchema(invalidProfileDefault);
     expect(isValid).to.be.false;
-    if (CompiledDefaultProfileSchema.errors) {
-      console.error("Validation errors for long name:", CompiledDefaultProfileSchema.errors);
+    if (CompiledProfileDefaultSchema.errors) {
+      console.error("Validation errors for long name:", CompiledProfileDefaultSchema.errors);
     }
   });
 
@@ -62,10 +62,10 @@ describe("Profile Default Definition Schema Validation", function () {
       value: 300, // Exceeds maximum of 255
     };
 
-    const isValid = CompiledDefaultProfileSchema(invalidProfileDefault);
+    const isValid = CompiledProfileDefaultSchema(invalidProfileDefault);
     expect(isValid).to.be.false;
-    if (CompiledDefaultProfileSchema.errors) {
-      console.error("Validation errors for value out of range:", CompiledDefaultProfileSchema.errors);
+    if (CompiledProfileDefaultSchema.errors) {
+      console.error("Validation errors for value out of range:", CompiledProfileDefaultSchema.errors);
     }
   });
 
@@ -76,10 +76,10 @@ describe("Profile Default Definition Schema Validation", function () {
       value: "invalid", // Invalid type
     };
 
-    const isValid = CompiledDefaultProfileSchema(invalidProfileDefault);
+    const isValid = CompiledProfileDefaultSchema(invalidProfileDefault);
     expect(isValid).to.be.false;
-    if (CompiledDefaultProfileSchema.errors) {
-      console.error("Validation errors for incorrect value type:", CompiledDefaultProfileSchema.errors);
+    if (CompiledProfileDefaultSchema.errors) {
+      console.error("Validation errors for incorrect value type:", CompiledProfileDefaultSchema.errors);
     }
   });
 
@@ -89,10 +89,10 @@ describe("Profile Default Definition Schema Validation", function () {
       // Missing 'name' and 'value'
     };
 
-    const isValid = CompiledDefaultProfileSchema(invalidProfileDefault);
+    const isValid = CompiledProfileDefaultSchema(invalidProfileDefault);
     expect(isValid).to.be.false;
-    if (CompiledDefaultProfileSchema.errors) {
-      console.error("Validation errors for missing required properties:", CompiledDefaultProfileSchema.errors);
+    if (CompiledProfileDefaultSchema.errors) {
+      console.error("Validation errors for missing required properties:", CompiledProfileDefaultSchema.errors);
     }
   });
 
@@ -104,10 +104,10 @@ describe("Profile Default Definition Schema Validation", function () {
       extraProperty: "Not allowed", // Additional property not allowed
     };
 
-    const isValid = CompiledDefaultProfileSchema(invalidProfileDefault);
+    const isValid = CompiledProfileDefaultSchema(invalidProfileDefault);
     expect(isValid).to.be.false;
-    if (CompiledDefaultProfileSchema.errors) {
-      console.error("Validation errors for additional properties:", CompiledDefaultProfileSchema.errors);
+    if (CompiledProfileDefaultSchema.errors) {
+      console.error("Validation errors for additional properties:", CompiledProfileDefaultSchema.errors);
     }
   });
 });

@@ -2,16 +2,16 @@
 
 import Ajv from "ajv";
 import addErrors from "ajv-errors";
-import { TriggerIndexSchemaDefinition } from "./trigger.index.schema";
-import { PropertyInstanceSchemaDefinition } from "./property.instance.schema";
+import { TriggerIndexSchema } from "./trigger.index.schema.js";
+import { PropertyInstanceSchema } from "./property.instance.schema.js";
 
 // Initialize AJV
 const ajv = new Ajv({ allErrors: true });
 
 addErrors(ajv);
 
-ajv.addSchema(TriggerIndexSchemaDefinition, "http://example.com/schemas/trigger.index.json");
-ajv.addSchema(PropertyInstanceSchemaDefinition, "http://example.com/schemas/property.instance.json");
+ajv.addSchema(TriggerIndexSchema, "http://example.com/schemas/trigger.index.json");
+ajv.addSchema(PropertyInstanceSchema, "http://example.com/schemas/property.instance.json");
 
 const TriggerInstanceSchema = {
   $schema: "http://json-schema.org/draft-07/schema#",

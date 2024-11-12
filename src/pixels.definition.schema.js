@@ -18,7 +18,7 @@ ajv.addSchema(VisualPixelDefinitionSchema, "http://example.com/schemas/visualpix
 // Define the PixelArraySchema with error handling
 const PixelsDefinitionSchema = {
   $schema: "http://json-schema.org/draft-07/schema#",
-  $id: "http://example.com/schemas/pixels.json",
+  $id: "http://example.com/schemas/pixels.definition.json",
   type: "array",
   minItems: 256,
   maxItems: 256,
@@ -29,7 +29,6 @@ const PixelsDefinitionSchema = {
     ],
     errorMessage: "Each item in the 'pixelArray' must be a valid DataPixel or VisualPixel.",
   },
-  uniqueItemProperties: ["index"],
   errorMessage: {
     type: "The 'pixelArray' must be an array.",
     minItems: "The 'pixelArray' must contain exactly 256 items.",
@@ -39,7 +38,7 @@ const PixelsDefinitionSchema = {
 };
 
 // Compile the schema with custom validation
-const CompiledPixelArraySchema = ajv.compile(PixelsDefinitionSchema);
+const CompiledPixelsDefinitionSchema = ajv.compile(PixelsDefinitionSchema);
 
 // Export the schema and validation function
-export { CompiledPixelArraySchema, PixelsDefinitionSchema };
+export { CompiledPixelsDefinitionSchema, PixelsDefinitionSchema };

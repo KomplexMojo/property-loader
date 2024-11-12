@@ -5,7 +5,7 @@ describe("Behaviour Definition Schema Validation", function () {
   
   it("should validate a correct Behaviour Definition object", function () {
     const validBehaviourDefinition = {
-      index: { index: 90 },
+      index: { value: 90 },
       extension: {
         name: "Valid Name",
         description: "A valid description within length limits.",
@@ -20,7 +20,7 @@ describe("Behaviour Definition Schema Validation", function () {
 
   it("should invalidate when index is out of range", function () {
     const invalidBehaviourDefinition = {
-      index: { index: 140 }, // Out of range for behaviour index
+      index: { value: 140 }, // Out of range for behaviour index
       extension: {
         name: "Valid Name",
         description: "A valid description.",
@@ -37,7 +37,7 @@ describe("Behaviour Definition Schema Validation", function () {
 
   it("should invalidate when the name exceeds the maximum length", function () {
     const invalidBehaviourDefinition = {
-      index: { index: 90 },
+      index: { value: 90 },
       extension: {
         name: "A".repeat(65), // Exceeds 64 character max length
         description: "A valid description.",
@@ -54,7 +54,7 @@ describe("Behaviour Definition Schema Validation", function () {
 
   it("should invalidate when the description exceeds the maximum length", function () {
     const invalidBehaviourDefinition = {
-      index: { index: 90 },
+      index: { value: 90 },
       extension: {
         name: "Valid Name",
         description: "D".repeat(257), // Exceeds 256 character max length
@@ -71,7 +71,7 @@ describe("Behaviour Definition Schema Validation", function () {
 
   it("should invalidate when the value is out of the valid range", function () {
     const invalidBehaviourDefinition = {
-      index: { index: 90 },
+      index: { value: 90 },
       extension: {
         name: "Valid Name",
         description: "A valid description.",
@@ -88,7 +88,7 @@ describe("Behaviour Definition Schema Validation", function () {
 
   it("should invalidate when a required property is missing", function () {
     const invalidBehaviourDefinition = {
-      index: { index: 90 },
+      index: { value: 90 },
       extension: {
         name: "Valid Name",
         // Missing 'description'
@@ -105,7 +105,7 @@ describe("Behaviour Definition Schema Validation", function () {
 
   it("should invalidate when additional properties are present", function () {
     const invalidBehaviourDefinition = {
-      index: { index: 90 },
+      index: { value: 90 },
       extension: {
         name: "Valid Name",
         description: "A valid description.",

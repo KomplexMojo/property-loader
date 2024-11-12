@@ -2,9 +2,10 @@
 
 import Ajv from "ajv";
 import addErrors from "ajv-errors";
-import { CharacteristicDefinitionSchema } from "./characteristic.definition.schema";
-import { CharacteristicIndexSchema } from "./characteristic.index.schema";
-import { DefinitionExtensionSchema } from "./definition.extension.schema";
+import { CharacteristicDefinitionSchema } from "./characteristic.definition.schema.js";
+import { CharacteristicIndexSchema } from "./characteristic.index.schema.js";
+import { DefinitionExtensionSchema } from "./definition.extension.schema.js";
+import { ProfileDefaultDefinitionSchema } from "./profiledefault.definition.schema.js";
 
 // Initialize AJV
 const ajv = new Ajv({ allErrors: true });
@@ -14,6 +15,7 @@ addErrors(ajv);
 ajv.addSchema(CharacteristicIndexSchema, "http://example.com/schemas/characteristic.index.json");
 ajv.addSchema(DefinitionExtensionSchema, "http://example.com/schemas/definition.extension.json");
 ajv.addSchema(CharacteristicDefinitionSchema, "http://example.com/schemas/characteristic.definition.json");
+ajv.addSchema(ProfileDefaultDefinitionSchema, "http://example.com/schemas/profiledefault.definition.json")
 
 const CharacteristicTraitDefinitionSchema = {
   $schema: "http://json-schema.org/draft-07/schema#",
@@ -21,7 +23,7 @@ const CharacteristicTraitDefinitionSchema = {
   type: "object",
   properties: {
     definition: { $ref: "http://example.com/schemas/characteristic.definition.json" },
-    defaults: { $ref: "http://example.com/schemas/profile.default.json" },
+    defaults: { $ref: "http://example.com/schemas/profiledefault.definition.json" },
   },
   required: ["definition", "defaults"],
   additionalProperties: false,

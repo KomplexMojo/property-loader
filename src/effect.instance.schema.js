@@ -2,16 +2,16 @@
 
 import Ajv from "ajv";
 import addErrors from "ajv-errors";
-import { EffectIndexSchemaDefinition } from "./effect.index.schema";
-import { PropertyInstanceSchemaDefinition } from "./property.instance.schema";
+import { EffectIndexSchema} from "./effect.index.schema.js";
+import { PropertyInstanceSchema } from "./property.instance.schema.js";
 
 // Initialize AJV
 const ajv = new Ajv({ allErrors: true });
 
 addErrors(ajv);
 
-ajv.addSchema(EffectIndexSchemaDefinition, "http://example.com/schemas/effect.index.json");
-ajv.addSchema(PropertyInstanceSchemaDefinition, "http://example.com/schemas/property.instance.json");
+ajv.addSchema(EffectIndexSchema, "http://example.com/schemas/effect.index.json");
+ajv.addSchema(PropertyInstanceSchema, "http://example.com/schemas/property.instance.json");
 
 const EffectInstanceSchema = {
   $schema: "http://json-schema.org/draft-07/schema#",

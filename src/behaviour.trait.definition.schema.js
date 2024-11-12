@@ -12,7 +12,7 @@ const ajv = new Ajv({ allErrors: true });
 
 addErrors(ajv);
 
-ajv.addSchema(ProfileDefaultDefinitionSchema, "http://example.com/schemas/profile.default.definition.schema.json");
+ajv.addSchema(ProfileDefaultDefinitionSchema, "http://example.com/schemas/profiledefault.definition.json");
 ajv.addSchema(BehaviourIndexSchema, "http://example.com/schemas/behaviour.index.json");
 ajv.addSchema(DefinitionExtensionSchema, "http://example.com/schemas/definition.extension.json");
 ajv.addSchema(BehaviourDefinitionSchema, "http://example.com/schemas/behaviour.definition.json");
@@ -23,7 +23,7 @@ const BehaviourTraitDefinitionSchema = {
   type: "object",
   properties: {
     definition: { $ref: "http://example.com/schemas/behaviour.definition.json" },
-    defaults: { $ref: "http://example.com/schemas/profile.default.json" },
+    defaults: { $ref: "http://example.com/schemas/profiledefault.definition.json" },
   },
   required: ["definition", "defaults"],
   additionalProperties: false,

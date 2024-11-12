@@ -16,7 +16,7 @@ ajv.addSchema(DefinitionExtensionSchema, "http://example.com/schemas/definition.
 
 const CharacteristicDefinitionSchema = {
   $schema: "http://json-schema.org/draft-07/schema#",
-  $id: "http://example.com/schemas/characteristics.definition.json",
+  $id: "http://example.com/schemas/characteristic.definition.json",
   type: "object",
   properties: {
     index: { $ref: "http://example.com/schemas/characteristic.index.json" },
