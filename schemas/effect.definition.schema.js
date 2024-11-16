@@ -32,6 +32,6 @@ const EffectDefinitionSchema = {
   }
 };
 
-const CompiledEffectHeaderSchema = ajv.compile(EffectDefinitionSchema);
+const CompiledEffectDefinitionSchema = ajv.compile(EffectDefinitionSchema);
 
-export { CompiledEffectHeaderSchema, EffectDefinitionSchema };
+export { CompiledEffectDefinitionSchema, EffectDefinitionSchema };

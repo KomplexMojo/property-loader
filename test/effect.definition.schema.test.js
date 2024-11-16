@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { CompiledEffectHeaderSchema } from "../src/effect.definition.schema.js";
+import { CompiledEffectDefinitionSchema } from "../schemas/effect.definition.schema.js";
 
 describe("Effect Header Schema Validation", function () {
 
@@ -7,31 +7,31 @@ describe("Effect Header Schema Validation", function () {
     const validEffectHeader = {
       index: { value: 192 }, // Valid effect index within range
       extension: {
+        subindex: 0,
         name: "Valid Effect Name",
-        description: "A valid description for the effect.",
-        value: 100
+        description: "A valid description for the effect."
       }
     };
 
-    const isValid = CompiledEffectHeaderSchema(validEffectHeader);
+    const isValid = CompiledEffectDefinitionSchema(validEffectHeader);
     expect(isValid).to.be.true;
-    expect(CompiledEffectHeaderSchema.errors).to.be.null;
+    expect(CompiledEffectDefinitionSchema.errors).to.be.null;
   });
 
   it("should invalidate when 'index' is out of range", function () {
     const invalidEffectHeader = {
       index: { value: 224 }, // Out of range for effect index
       extension: {
+        subindex:100,
         name: "Valid Effect Name",
-        description: "A valid description.",
-        value: 100
+        description: "A valid description."
       }
     };
 
-    const isValid = CompiledEffectHeaderSchema(invalidEffectHeader);
+    const isValid = CompiledEffectDefinitionSchema(invalidEffectHeader);
     expect(isValid).to.be.false;
-    if (CompiledEffectHeaderSchema.errors) {
-      console.error("Validation errors for 'index' out of range:", CompiledEffectHeaderSchema.errors);
+    if (CompiledEffectDefinitionSchema.errors) {
+      console.error("Validation errors for 'index' out of range:", CompiledEffectDefinitionSchema.errors);
     }
   });
 
@@ -39,16 +39,16 @@ describe("Effect Header Schema Validation", function () {
     const invalidEffectHeader = {
       index: { value: 192 },
       extension: {
+        subindex: 100,
         name: "A".repeat(65), // Exceeds 64 character limit
-        description: "A valid description.",
-        value: 100
+        description: "A valid description."
       }
     };
 
-    const isValid = CompiledEffectHeaderSchema(invalidEffectHeader);
+    const isValid = CompiledEffectDefinitionSchema(invalidEffectHeader);
     expect(isValid).to.be.false;
-    if (CompiledEffectHeaderSchema.errors) {
-      console.error("Validation errors for 'name' exceeding max length:", CompiledEffectHeaderSchema.errors);
+    if (CompiledEffectDefinitionSchema.errors) {
+      console.error("Validation errors for 'name' exceeding max length:", CompiledEffectDefinitionSchema.errors);
     }
   });
 
@@ -56,16 +56,16 @@ describe("Effect Header Schema Validation", function () {
     const invalidEffectHeader = {
       index: { value: 192 },
       extension: {
+        subindex: 100,
         name: "Valid Effect Name",
-        description: "D".repeat(257), // Exceeds 256 character limit
-        value: 100
+        description: "D".repeat(257) // Exceeds 256 character limit
       }
     };
 
-    const isValid = CompiledEffectHeaderSchema(invalidEffectHeader);
+    const isValid = CompiledEffectDefinitionSchema(invalidEffectHeader);
     expect(isValid).to.be.false;
-    if (CompiledEffectHeaderSchema.errors) {
-      console.error("Validation errors for 'description' exceeding max length:", CompiledEffectHeaderSchema.errors);
+    if (CompiledEffectDefinitionSchema.errors) {
+      console.error("Validation errors for 'description' exceeding max length:", CompiledEffectDefinitionSchema.errors);
     }
   });
 
@@ -73,16 +73,16 @@ describe("Effect Header Schema Validation", function () {
     const invalidEffectHeader = {
       index: { value: 192 },
       extension: {
+        subindex: 300,
         name: "Valid Effect Name",
-        description: "A valid description.",
-        value: 300 // Out of range for value (0-255)
+        description: "A valid description."
       }
     };
 
-    const isValid = CompiledEffectHeaderSchema(invalidEffectHeader);
+    const isValid = CompiledEffectDefinitionSchema(invalidEffectHeader);
     expect(isValid).to.be.false;
-    if (CompiledEffectHeaderSchema.errors) {
-      console.error("Validation errors for 'value' out of range:", CompiledEffectHeaderSchema.errors);
+    if (CompiledEffectDefinitionSchema.errors) {
+      console.error("Validation errors for 'value' out of range:", CompiledEffectDefinitionSchema.errors);
     }
   });
 
@@ -92,10 +92,10 @@ describe("Effect Header Schema Validation", function () {
       // Missing 'extension'
     };
 
-    const isValid = CompiledEffectHeaderSchema(invalidEffectHeader);
+    const isValid = CompiledEffectDefinitionSchema(invalidEffectHeader);
     expect(isValid).to.be.false;
-    if (CompiledEffectHeaderSchema.errors) {
-      console.error("Validation errors for missing required 'extension' property:", CompiledEffectHeaderSchema.errors);
+    if (CompiledEffectDefinitionSchema.errors) {
+      console.error("Validation errors for missing required 'extension' property:", CompiledEffectDefinitionSchema.errors);
     }
   });
 
@@ -103,17 +103,17 @@ describe("Effect Header Schema Validation", function () {
     const invalidEffectHeader = {
       index: { value: 192 },
       extension: {
+        subindex: 0,
         name: "Valid Effect Name",
         description: "A valid description.",
-        value: 100
       },
       extraProperty: "Not allowed" // Additional property not allowed
     };
 
-    const isValid = CompiledEffectHeaderSchema(invalidEffectHeader);
+    const isValid = CompiledEffectDefinitionSchema(invalidEffectHeader);
     expect(isValid).to.be.false;
-    if (CompiledEffectHeaderSchema.errors) {
-      console.error("Validation errors for additional properties:", CompiledEffectHeaderSchema.errors);
+    if (CompiledEffectDefinitionSchema.errors) {
+      console.error("Validation errors for additional properties:", CompiledEffectDefinitionSchema.errors);
     }
   });
 });

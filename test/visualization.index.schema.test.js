@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { CompiledVisualizationIndexSchema } from "../src/visualization.index.schema.js"; // Adjust the path as needed
+import { CompiledVisualizationIndexSchema } from "../schemas/visualization.index.schema.js"; // Adjust the path as needed
 
 // Test suite for VisualizationIndexSchema
 describe("VisualizationIndexSchema Validation", function () {

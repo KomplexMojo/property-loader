@@ -22,23 +22,21 @@ const EffectInstanceSchema = {
       $ref: "http://example.com/schemas/effect.index.json",
       errorMessage: "The 'index' must be a valid effect index.",
     },
-    primary: {
+    subindex: {
       $ref: "http://example.com/schemas/property.instance.json",
-      errorMessage: "The 'primary value' must be a valid property instance even if it is set to 0. Primary values could be a set to the index of the property for a definition.",
+      errorMessage: "The 'subindex' must be a valid property instance even if it is set to 0.",
     },
-    secondary: {
+    value: {
       $ref: "http://example.com/schemas/property.instance.json",
       errorMessage: "The 'secondary value' must be a valid property instance even if it is set to 0.",
     },
   },
-  required: ["index", "primary","secondary"],
+  required: ["index", "subindex"],
   additionalProperties: false,
   errorMessage: {
     required: {
       index: "The 'index' property is required.",
-      primary: "The 'primary value' property is required.",
-      secondary: "The 'secondary value' property is required.",
-
+      subindex: "The 'subindex' property is required.",
     },
     additionalProperties: "No additional properties are allowed in the object.",
   },

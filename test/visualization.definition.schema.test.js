@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { CompiledVisualizationDefinitionSchema } from "../src/visualization.definition.schema.js";
+import { CompiledVisualizationDefinitionSchema } from "../schemas/visualization.definition.schema.js";
 
 describe("Visualization Definition Schema Validation", function () {
   
@@ -7,9 +7,9 @@ describe("Visualization Definition Schema Validation", function () {
     const validVisualizationDefinition = {
       index: { value: 0 },
       extension: {
+        subindex: 100,
         name: "Valid Name",
-        description: "A valid description that does not exceed the maximum length.",
-        value: 100
+        description: "A valid description that does not exceed the maximum length."
       }
     };
 
@@ -22,9 +22,9 @@ describe("Visualization Definition Schema Validation", function () {
     const invalidVisualizationDefinition = {
       index: { value: 40 }, // Out of range for visualization index
       extension: {
+        subindex: 100,
         name: "Valid Name",
-        description: "A valid description that does not exceed the maximum length.",
-        value: 100
+        description: "A valid description that does not exceed the maximum length."
       }
     };
 
@@ -39,9 +39,9 @@ describe("Visualization Definition Schema Validation", function () {
     const invalidVisualizationDefinition = {
       index: { value: 0 },
       extension: {
+        subindex: 0,
         name: "A".repeat(65), // Exceeds 64 character max length
-        description: "A valid description.",
-        value: 100
+        description: "A valid description."
       }
     };
 
@@ -56,9 +56,9 @@ describe("Visualization Definition Schema Validation", function () {
     const invalidVisualizationDefinition = {
       index: { value: 0 },
       extension: {
+        subindex: 100,
         name: "Valid Name",
-        description: "D".repeat(257), // Exceeds 256 character max length
-        value: 100
+        description: "D".repeat(257), // Exceeds 256 character max lengt
       }
     };
 
@@ -73,9 +73,9 @@ describe("Visualization Definition Schema Validation", function () {
     const invalidVisualizationDefinition = {
       index: { value: 0 },
       extension: {
+        subindex: 300,
         name: "Valid Name",
-        description: "A valid description.",
-        value: 300 // Exceeds maximum of 255
+        description: "A valid description."
       }
     };
 
@@ -90,9 +90,9 @@ describe("Visualization Definition Schema Validation", function () {
     const invalidVisualizationDefinition = {
       index: { value: 0 },
       extension: {
-        name: "Valid Name",
+        subindex: 100,
+        name: "Valid Name"
         // Missing 'description'
-        value: 100
       }
     };
 
@@ -107,9 +107,9 @@ describe("Visualization Definition Schema Validation", function () {
     const invalidVisualizationDefinition = {
       index: { value: 0 },
       extension: {
+        subindex: 100,
         name: "Valid Name",
         description: "A valid description.",
-        value: 100,
         extraProperty: "Not allowed" // Additional property not allowed
       }
     };

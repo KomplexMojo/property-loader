@@ -1,6 +1,6 @@
 import { expect } from "chai";
-import { CompiledPropertyInstanceSchema } from "../src/property.instance.schema.js";
-import IndexRangeRegistry from "../src/indexregistry.js";
+import { CompiledPropertyInstanceSchema } from "../schemas/property.instance.schema.js";
+import IndexRangeRegistry from "../schemas/_indexregistry.js";
 
 const { start: propertyValueStart, end: propertyvalueEnd } = IndexRangeRegistry.propertyValueRange;
 

@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { CompiledEventIndexSchema } from "../src/event.index.schema.js";
+import { CompiledEventIndexSchema } from "../schemas/event.index.schema.js";
 
 describe("Event Index Schema Validation", function () {
 

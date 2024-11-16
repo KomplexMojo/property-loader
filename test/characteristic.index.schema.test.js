@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { CompiledCharacteristicIndexSchema } from "../src/characteristic.index.schema.js";
+import { CompiledCharacteristicIndexSchema } from "../schemas/characteristic.index.schema.js";
 
 describe("Characteristic Index Schema Validation", function () {
   

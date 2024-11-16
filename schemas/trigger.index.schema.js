@@ -2,7 +2,7 @@ import Ajv from "ajv";
 import addErrors from "ajv-errors";
 
 // Import the IndexRangeRegistry
-import IndexRangeRegistry from "./indexregistry.js";
+import IndexRangeRegistry from "./_indexregistry.js";
 
 // Initialize AJV
 const ajv = new Ajv({ allErrors: true });
@@ -10,23 +10,23 @@ const ajv = new Ajv({ allErrors: true });
 addErrors(ajv);
 
 // Get the start and end values for appearances from the IndexRangeRegistry
-const { start: effectStart, end: effectEnd } = IndexRangeRegistry.effectRange;
+const { start: triggerStart, end: triggerEnd } = IndexRangeRegistry.triggerRange;
 
-const EffectIndexSchema = {
+const TriggerIndexSchema = {
   $schema: "http://json-schema.org/draft-07/schema#",
-  $id: "http://example.com/schemas/effect.index.json",
+  $id: "http://example.com/schemas/trigger.index.json",
   type: "object",
   properties: {
     value: {
       type: "integer",
-      minimum: effectStart,
-      maximum: effectEnd,
+      minimum: triggerStart,
+      maximum: triggerEnd,
       description:
-        "Unique index for the header, must be within the valid range for effects.",
+        "Unique index for the header, must be within the valid range for triggers.",
       errorMessage: {
         type: "The 'index' must be an integer.",
-        minimum: `The 'index' must be at least ${effectStart}.`,
-        maximum: `The 'index' must be at most ${effectEnd}.`,
+        minimum: `The 'index' must be at least ${triggerStart}.`,
+        maximum: `The 'index' must be at most ${triggerEnd}.`,
       },
     },
   },
@@ -40,6 +40,6 @@ const EffectIndexSchema = {
   },
 };
 
-const CompiledEffectIndexSchema = ajv.compile(EffectIndexSchema);
+const CompiledTriggerIndex = ajv.compile(TriggerIndexSchema);
 
-export { CompiledEffectIndexSchema, EffectIndexSchema };
+export { CompiledTriggerIndex, TriggerIndexSchema};

@@ -1,6 +1,6 @@
 import { expect } from "chai";
-import { CompiledGameSchema } from "../src/game.template.schema.js";
-import IndexRangeRegistry from "../src/indexregistry.js";
+import { CompiledGameSchema } from "../schemas/game.template.schema.js";
+import IndexRangeRegistry from "../schemas/_indexregistry.js";
 
 // Get the start and end values for visualizations from the IndexRangeRegistry
 const { start: visualizationStart, end: visualizationEnd } = IndexRangeRegistry.visualizationRange;

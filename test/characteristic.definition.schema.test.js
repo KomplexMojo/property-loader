@@ -1,15 +1,15 @@
 import { expect } from "chai";
-import { CompiledCharacteristicsDefinition } from "../src/characteristic.definition.schema.js";
+import { CompiledCharacteristicsDefinition } from "../schemas/characteristic.definition.schema.js";
 
 describe("Characteristics Definition Schema Validation", function () {
-  
+
   it("should validate a correct Characteristics Definition object", function () {
     const validCharacteristicsDefinition = {
       index: { value: 45 }, // Within valid range for characteristics
       extension: {
+        subindex: 0,
         name: "Valid Name",
         description: "A valid description.",
-        value: 100
       }
     };
 
@@ -22,9 +22,10 @@ describe("Characteristics Definition Schema Validation", function () {
     const invalidCharacteristicsDefinition = {
       index: { value: 90 }, // Out of valid range for characteristics
       extension: {
+        subindex: 100,
         name: "Valid Name",
         description: "A valid description.",
-        value: 100
+
       }
     };
 
@@ -39,9 +40,9 @@ describe("Characteristics Definition Schema Validation", function () {
     const invalidCharacteristicsDefinition = {
       index: { value: 45 },
       extension: {
+        subindex: 100,
         name: "A".repeat(65), // Exceeds 64 character max length
-        description: "A valid description.",
-        value: 100
+        description: "A valid description."
       }
     };
 
@@ -56,9 +57,9 @@ describe("Characteristics Definition Schema Validation", function () {
     const invalidCharacteristicsDefinition = {
       index: { value: 45 },
       extension: {
+        subindex: 100,
         name: "Valid Name",
         description: "D".repeat(257), // Exceeds 256 character max length
-        value: 100
       }
     };
 
@@ -73,9 +74,9 @@ describe("Characteristics Definition Schema Validation", function () {
     const invalidCharacteristicsDefinition = {
       index: { value: 45 },
       extension: {
+        subindex: 300,
         name: "Valid Name",
-        description: "A valid description.",
-        value: 300 // Exceeds maximum of 255
+        description: "A valid description."
       }
     };
 
@@ -90,9 +91,9 @@ describe("Characteristics Definition Schema Validation", function () {
     const invalidCharacteristicsDefinition = {
       index: { value: 45 },
       extension: {
-        name: "Valid Name",
+        subindex: 100,
+        name: "Valid Name"
         // Missing 'description' property
-        value: 100
       }
     };
 
@@ -107,9 +108,9 @@ describe("Characteristics Definition Schema Validation", function () {
     const invalidCharacteristicsDefinition = {
       index: { value: 45 },
       extension: {
+        subindex: 100,
         name: "Valid Name",
         description: "A valid description.",
-        value: 100,
         extraProperty: "Not allowed" // Additional property not allowed
       }
     };

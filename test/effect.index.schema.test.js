@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { CompiledEffectIndexSchema } from "../src/effect.index.schema.js";
+import { CompiledEffectIndexSchema } from "../schemas/effect.index.schema.js";
 
 describe("Effect Index Schema Validation", function () {
 

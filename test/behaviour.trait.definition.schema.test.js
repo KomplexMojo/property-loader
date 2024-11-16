@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { CompiledBehaviourTraitDefinitionSchema } from "../src/behaviour.trait.definition.schema.js";
+import { CompiledBehaviourTraitDefinitionSchema } from "../schemas/behaviour.trait.definition.schema.js";
 
 describe("Behaviour Trait Definition Schema Validation", function () {
   
@@ -8,9 +8,9 @@ describe("Behaviour Trait Definition Schema Validation", function () {
       definition: {
         index: { value: 90 }, // Within valid range for behaviours
         extension: {
+          subindex: 0,
           name: "Valid Behaviour Name",
-          description: "A valid description for behaviour.",
-          value: 150
+          description: "A valid description for behaviour."
         }
       },
       defaults: {
@@ -22,6 +22,9 @@ describe("Behaviour Trait Definition Schema Validation", function () {
 
     const isValid = CompiledBehaviourTraitDefinitionSchema(validBehaviourTraitDefinition);
     expect(isValid).to.be.true;
+    if (CompiledBehaviourTraitDefinitionSchema.errors) {
+      console.error("Validation errors for out-of-range behaviour index:", CompiledBehaviourTraitDefinitionSchema.errors);
+    }
     expect(CompiledBehaviourTraitDefinitionSchema.errors).to.be.null;
   });
 
@@ -30,9 +33,9 @@ describe("Behaviour Trait Definition Schema Validation", function () {
       definition: {
         index: { value: 140 }, // Out of range for behaviour index
         extension: {
+          subindex: 0,
           name: "Valid Behaviour Name",
-          description: "A valid description.",
-          value: 100
+          description: "A valid description."
         }
       },
       defaults: {
@@ -54,9 +57,9 @@ describe("Behaviour Trait Definition Schema Validation", function () {
       definition: {
         index: { value: 90 },
         extension: {
+          subindex: 0,
           name: "Valid Behaviour Name",
           description: "A valid description.",
-          value: 100
         }
       },
       defaults: {
@@ -78,9 +81,9 @@ describe("Behaviour Trait Definition Schema Validation", function () {
       definition: {
         index: { value: 90 },
         extension: {
+          subindex: 0,
           name: "Valid Behaviour Name",
-          description: "A valid description.",
-          value: 100
+          description: "A valid description."
         }
       },
       defaults: {
@@ -102,9 +105,9 @@ describe("Behaviour Trait Definition Schema Validation", function () {
       definition: {
         index: { value: 90 },
         extension: {
+          subindex: 100,
           name: "Valid Behaviour Name",
           description: "A valid description.",
-          value: 100
         }
       },
       defaults: {
@@ -125,9 +128,9 @@ describe("Behaviour Trait Definition Schema Validation", function () {
       definition: {
         index: { value: 90 },
         extension: {
+          subindex: 100,
           name: "Valid Behaviour Name",
           description: "A valid description.",
-          value: 100
         }
       },
       defaults: {

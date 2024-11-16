@@ -1,15 +1,15 @@
 import { expect } from "chai";
-import { CompiledConditionDefinition } from "../src/condition.definition.schema.js";
+import { CompiledConditionDefinition } from "../schemas/condition.definition.schema.js";
 
 describe("Condition Definition Schema Validation", function () {
-  
+
   it("should validate a correct Condition Definition object", function () {
     const validConditionDefinition = {
       index: { value: 224 }, // Valid index within condition range
       extension: {
+        subindex: 150,
         name: "Valid Condition Name",
-        description: "A valid description within length limit.",
-        value: 150
+        description: "A valid description within length limit."
       }
     };
 
@@ -22,9 +22,9 @@ describe("Condition Definition Schema Validation", function () {
     const invalidConditionDefinition = {
       index: { value: 300 }, // Out of range for condition index
       extension: {
+        subindex: 150,
         name: "Valid Condition Name",
-        description: "A valid description within length limit.",
-        value: 150
+        description: "A valid description within length limit."
       }
     };
 
@@ -39,9 +39,9 @@ describe("Condition Definition Schema Validation", function () {
     const invalidConditionDefinition = {
       index: { value: 224 },
       extension: {
+        subindex: 100,
         name: "A".repeat(65), // Exceeds 64 character max length
-        description: "A valid description.",
-        value: 150
+        description: "A valid description."
       }
     };
 
@@ -56,9 +56,9 @@ describe("Condition Definition Schema Validation", function () {
     const invalidConditionDefinition = {
       index: { value: 224 },
       extension: {
+        subindex: 150,
         name: "Valid Condition Name",
-        description: "D".repeat(257), // Exceeds 256 character max length
-        value: 150
+        description: "D".repeat(257) // Exceeds 256 character max length
       }
     };
 
@@ -73,9 +73,9 @@ describe("Condition Definition Schema Validation", function () {
     const invalidConditionDefinition = {
       index: { value: 224 },
       extension: {
+        subindex: 300,
         name: "Valid Condition Name",
-        description: "A valid description.",
-        value: 300 // Exceeds maximum of 255
+        description: "A valid description."
       }
     };
 
@@ -90,9 +90,9 @@ describe("Condition Definition Schema Validation", function () {
     const invalidConditionDefinition = {
       index: { value: 224 },
       extension: {
-        name: "Valid Condition Name",
+        subindex: 150,
+        name: "Valid Condition Name"
         // Missing 'description' property
-        value: 150
       }
     };
 
@@ -107,9 +107,9 @@ describe("Condition Definition Schema Validation", function () {
     const invalidConditionDefinition = {
       index: { value: 224 },
       extension: {
+        subindex: 150,
         name: "Valid Condition Name",
         description: "A valid description.",
-        value: 150,
         extraProperty: "Not allowed" // Additional property not allowed
       }
     };
@@ -125,9 +125,9 @@ describe("Condition Definition Schema Validation", function () {
     const invalidConditionDefinition = {
       // Missing 'index' property
       extension: {
+        subindex: 100,
         name: "Valid Condition Name",
-        description: "A valid description.",
-        value: 150
+        description: "A valid description."
       }
     };
 

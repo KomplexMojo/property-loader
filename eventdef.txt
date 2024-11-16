@@ -1,0 +1,29 @@
+
+[index.propertyindex.value]
+
+Event 
+    Movement [1.0.0]
+        Up [1.1.0]
+        Down [1.2.0]
+    DoorState [2.0.0]
+        DoorClosed [2.1.0]
+        DoorOpening [2.2.1]
+        DoorOpened [2.3.1]
+        DoorClosing [2.4.1]
+
+
+Trigger
+    KeyPressTriggers [5.0.0]
+        KeyPressUpArrow [5.1.0]
+        KeyPressLeftArrow [5.2.0]
+
+
+Condition
+    Obstruction [10.0.0]
+        PathOpen [10.1.0]
+        PathBlocked [10.2.0]
+
+
+
+EventTemplate - MovementTowardsDoor
+    []

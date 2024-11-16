@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { CompiledProfileDefaultSchema } from "../src/profiledefault.definition.schema.js";
+import { CompiledProfileDefaultSchema } from "../schemas/profiledefault.definition.schema.js";
 
 describe("Profile Default Definition Schema Validation", function () {
   

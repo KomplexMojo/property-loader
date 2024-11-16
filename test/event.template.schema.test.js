@@ -1,17 +1,18 @@
 import { expect } from "chai";
-import { CompiledEventTemplateSchema } from "../src/event.template.schema.js";
+import { CompiledEventTemplateSchema } from "../schemas/event.template.schema.js";
 
 describe("Event Template Schema Validation", function () {
 
     it("should validate a correct Event Template object..", function () {
         const validEventTemplate = {
-            header: {
-                name: "Valid Event Header",
-                description: "This is a valid event header description."
+            event: {
+                index: { value: 140 },  // Ensure index is an object here
+                subindex: { value: 100 },
+                value: { value: 50 }
             },
             defaults: [
                 {
-                    index:  1,
+                    index: 1,
                     name: "Default Profile",
                     value: 50
                 },
@@ -19,22 +20,22 @@ describe("Event Template Schema Validation", function () {
             triggers: [
                 {
                     index: { value: 160 },  // Ensure index is an object here
-                    primary: { value: 100 },
-                    secondary: { value: 50 }
+                    subindex: { value: 100 },
+                    value: { value: 50 }
                 }
             ],
             effects: [
                 {
                     index: { value: 192 },  // Ensure index is an object here
-                    primary: { value: 120 },
-                    secondary: { value: 80 }
+                    subindex: { value: 120 },
+                    value: { value: 80 }
                 }
             ],
             conditions: [
                 {
                     index: { value: 224 },  // Ensure index is an object here
-                    primary: { value: 60 },
-                    secondary: { value: 30 }
+                    subindex: { value: 60 },
+                    value: { value: 30 }
                 }
             ]
         };
@@ -48,13 +49,13 @@ describe("Event Template Schema Validation", function () {
     it("should invalidate when 'header' is missing", function () {
         const invalidEventTemplate = {
             triggers: [
-                { index: 160, primary: { value: 100 }, secondary: { value: 50 } }
+                { index: 160, subindex: { value: 100 }, value: { value: 50 } }
             ],
             effects: [
-                { index: 192, primary: { value: 120 }, secondary: { value: 80 } }
+                { index: 192, subindex: { value: 120 }, value: { value: 80 } }
             ],
             conditions: [
-                { index: 224, primary: { value: 60 }, secondary: { value: 30 } }
+                { index: 224, subindex: { value: 60 }, value: { value: 30 } }
             ]
         };
 
@@ -74,14 +75,14 @@ describe("Event Template Schema Validation", function () {
             },
             triggers: Array(32 + 1).fill({
                 index: 160,
-                primary: { value: 100 },
-                secondary: { value: 50 }
+                subindex: { value: 100 },
+                value: { value: 50 }
             }),
             effects: [
-                { index: 192, primary: { value: 120 }, secondary: { value: 80 } }
+                { index: 192, subindex: { value: 120 }, value: { value: 80 } }
             ],
             conditions: [
-                { index: 224, primary: { value: 60 }, secondary: { value: 30 } }
+                { index: 224, subindex: { value: 60 }, value: { value: 30 } }
             ]
         };
 
@@ -99,11 +100,11 @@ describe("Event Template Schema Validation", function () {
                 description: "This is a valid event header description.",
             },
             triggers: [
-                { index: 160, primary: { value: 100 }, secondary: { value: 50 } }
+                { index: 160, subindex: { value: 100 }, value: { value: 50 } }
             ],
             effects: [], // No effects, violating minItems
             conditions: [
-                { index: 224, primary: { value: 60 }, secondary: { value: 30 } }
+                { index: 224, subindex: { value: 60 }, value: { value: 30 } }
             ]
         };
 
@@ -121,16 +122,16 @@ describe("Event Template Schema Validation", function () {
                 description: "This is a valid event header description.",
             },
             triggers: [
-                { index: 160, primary: { value: 100 }, secondary: { value: 50 } }
+                { index: 160, subindex: { value: 100 }, value: { value: 50 } }
             ],
             effects: [
-                { index: 192, primary: { value: 120 }, secondary: { value: 80 } }
+                { index: 192, subindex: { value: 120 }, value: { value: 80 } }
             ],
             conditions: [
                 {
                     index: 224,
-                    primary: { value: 60 },
-                    secondary: { value: 30 },
+                    subindex: { value: 60 },
+                    value: { value: 30 },
                     extraProperty: "Not allowed"
                 }
             ]
@@ -155,13 +156,13 @@ describe("Event Template Schema Validation", function () {
                 value: 50
             }),
             triggers: [
-                { index: 160, primary: { value: 100 }, secondary: { value: 50 } }
+                { index: 160, subindex: { value: 100 }, value: { value: 50 } }
             ],
             effects: [
-                { index: 192, primary: { value: 120 }, secondary: { value: 80 } }
+                { index: 192, subindex: { value: 120 }, value: { value: 80 } }
             ],
             conditions: [
-                { index: 224, primary: { value: 60 }, secondary: { value: 30 } }
+                { index: 224, subindex: { value: 60 }, value: { value: 30 } }
             ]
         };
 
@@ -182,13 +183,13 @@ describe("Event Template Schema Validation", function () {
                 { index: 1, name: "Default Profile", value: 50 }
             ],
             triggers: [
-                { index: 160, primary: { value: 100 }, secondary: { value: 50 } }
+                { index: 160, subindex: { value: 100 }, value: { value: 50 } }
             ],
             effects: [
-                { index: 192, primary: { value: 120 }, secondary: { value: 80 } }
+                { index: 192, subindex: { value: 120 }, value: { value: 80 } }
             ],
             conditions: [
-                { index: 224, primary: { value: 60 }, secondary: { value: 30 } }
+                { index: 224, subindex: { value: 60 }, value: { value: 30 } }
             ]
         };
 

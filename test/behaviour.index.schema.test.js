@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { CompiledBehaviourIndexSchema } from "../src/behaviour.index.schema.js";
+import { CompiledBehaviourIndexSchema } from "../schemas/behaviour.index.schema.js";
 
 describe("Behaviour Index Schema Validation", function () {
   

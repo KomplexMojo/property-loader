@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { CompiledVisualizationTraitSchema } from "../src/visualization.trait.definition.schema.js";
+import { CompiledVisualizationTraitSchema } from "../schemas/visualization.trait.definition.schema.js";
 
 describe("Visualization Definition Schema Validation", function () {
   
@@ -8,9 +8,9 @@ describe("Visualization Definition Schema Validation", function () {
       definition: {
         index: { value: 3 }, // Valid index for characteristic range
         extension: {
+          subindex: 100,
           name: "Valid Name",
-          description: "A valid description.",
-          value: 100
+          description: "A valid description."
         }
       },
       pixels: Array.from({ length: 256 }, (_, i) => ({
@@ -27,7 +27,7 @@ describe("Visualization Definition Schema Validation", function () {
     expect(CompiledVisualizationTraitSchema.errors).to.be.null;
   });
 
-  it("should invalidate when 'header' is missing", function () {
+  it("should invalidate when 'extension' is missing", function () {
     const invalidVisualizationDefinition = {
       pixels: Array.from({ length: 256 }, (_, i) => ({
         index: i,
@@ -42,7 +42,7 @@ describe("Visualization Definition Schema Validation", function () {
     expect(isValid).to.be.false;
 
     if (CompiledVisualizationTraitSchema.errors) {
-      console.error("Validation errors for missing 'header':", CompiledVisualizationTraitSchema.errors);
+      console.error("Validation errors for missing 'extension':", CompiledVisualizationTraitSchema.errors);
     }
   });
 
@@ -51,9 +51,9 @@ describe("Visualization Definition Schema Validation", function () {
       definition: {
         index: { value: 3 }, // Valid index for characteristic range
         extension: {
+          subindex: 100,
           name: "Valid Name",
-          description: "A valid description.",
-          value: 100
+          description: "A valid description."
         }
       },
     };
@@ -71,9 +71,9 @@ describe("Visualization Definition Schema Validation", function () {
       definition: {
         index: { value: 3 }, // Valid index for characteristic range
         extension: {
+          subindex: 0,
           name: "Valid Name",
-          description: "A valid description.",
-          value: 100
+          description: "A valid description."
         }
       },
       pixels: Array.from({ length: 255 }, (_, i) => ({
@@ -93,7 +93,7 @@ describe("Visualization Definition Schema Validation", function () {
     }
   });
 
-  it("should invalidate when 'header' has invalid properties", function () {
+  it("should invalidate when 'extension' has invalid properties", function () {
     const invalidVisualizationDefinition = {
       definition: {
         index: { value: 3 }, // Valid index for characteristic range
@@ -116,7 +116,7 @@ describe("Visualization Definition Schema Validation", function () {
     expect(isValid).to.be.false;
 
     if (CompiledVisualizationTraitSchema.errors) {
-      console.error("Validation errors for invalid 'header' properties:", CompiledVisualizationTraitSchema.errors);
+      console.error("Validation errors for invalid 'extension' properties:", CompiledVisualizationTraitSchema.errors);
     }
   });
 
@@ -125,9 +125,9 @@ describe("Visualization Definition Schema Validation", function () {
       definition: {
         index: { value: 3 }, // Valid index for characteristic range
         extension: {
+          subindex: 100,
           name: "Valid Name",
           description: "A valid description.",
-          value: 100
         }
       },
       pixels: Array.from({ length: 256 }, (_, i) => ({

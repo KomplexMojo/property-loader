@@ -1,13 +1,13 @@
 import { expect } from "chai";
-import { CompiledDefinitionExtensionSchema } from "../src/definition.extension.schema.js";
+import { CompiledDefinitionExtensionSchema } from "../schemas/definition.extension.schema.js";
 
 describe("Definition Extension Schema Validation", function () {
   
   it("should validate a correct Definition Extension object", function () {
     const validDefinitionExtension = {
+      subindex: 100,
       name: "Valid Name",
-      description: "A valid description that does not exceed the maximum length.",
-      value: 100
+      description: "A valid description that does not exceed the maximum length."
     };
 
     const isValid = CompiledDefinitionExtensionSchema(validDefinitionExtension);
@@ -17,9 +17,9 @@ describe("Definition Extension Schema Validation", function () {
 
   it("should invalidate when 'name' exceeds maximum length", function () {
     const invalidDefinitionExtension = {
+      subindex: 100,
       name: "A".repeat(65), // Exceeds 64 character max length
       description: "A valid description.",
-      value: 100
     };
 
     const isValid = CompiledDefinitionExtensionSchema(invalidDefinitionExtension);
@@ -31,9 +31,9 @@ describe("Definition Extension Schema Validation", function () {
 
   it("should invalidate when 'description' exceeds maximum length", function () {
     const invalidDefinitionExtension = {
+      subindex: 100,
       name: "Valid Name",
       description: "D".repeat(257), // Exceeds 256 character max length
-      value: 100
     };
 
     const isValid = CompiledDefinitionExtensionSchema(invalidDefinitionExtension);
@@ -45,9 +45,9 @@ describe("Definition Extension Schema Validation", function () {
 
   it("should invalidate when 'value' is out of the valid range", function () {
     const invalidDefinitionExtension = {
+      subindex: 300,
       name: "Valid Name",
-      description: "A valid description.",
-      value: 300 // Exceeds maximum of 255
+      description: "A valid description."
     };
 
     const isValid = CompiledDefinitionExtensionSchema(invalidDefinitionExtension);
@@ -59,9 +59,9 @@ describe("Definition Extension Schema Validation", function () {
 
   it("should invalidate when a required property is missing", function () {
     const invalidDefinitionExtension = {
+      subindex: 100,
       name: "Valid Name",
       // Missing 'description'
-      value: 100
     };
 
     const isValid = CompiledDefinitionExtensionSchema(invalidDefinitionExtension);
@@ -73,9 +73,9 @@ describe("Definition Extension Schema Validation", function () {
 
   it("should invalidate when additional properties are present", function () {
     const invalidDefinitionExtension = {
+      subindex: 100,
       name: "Valid Name",
       description: "A valid description.",
-      value: 100,
       extraProperty: "Not allowed" // Additional property not allowed
     };
 
@@ -88,9 +88,9 @@ describe("Definition Extension Schema Validation", function () {
 
   it("should invalidate when 'value' is not an integer", function () {
     const invalidDefinitionExtension = {
+      subindex: "not an integer",
       name: "Valid Name",
       description: "A valid description.",
-      value: "not an integer" // Invalid type
     };
 
     const isValid = CompiledDefinitionExtensionSchema(invalidDefinitionExtension);

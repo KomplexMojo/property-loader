@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { CompiledCharacteristicTraitDefinitionSchema } from "../src/characteristic.trait.definition.schema.js";
+import { CompiledCharacteristicTraitDefinitionSchema } from "../schemas/characteristic.trait.definition.schema.js";
 
 describe("Characteristic Trait Definition Schema Validation", function () {
   
@@ -8,9 +8,9 @@ describe("Characteristic Trait Definition Schema Validation", function () {
       definition: {
         index: { value: 45 }, // Valid index for characteristic range
         extension: {
+          subindex: 100,
           name: "Valid Name",
-          description: "A valid description.",
-          value: 100
+          description: "A valid description."
         }
       },
       defaults: {
@@ -30,9 +30,9 @@ describe("Characteristic Trait Definition Schema Validation", function () {
       definition: {
         index: { value: 90 }, // Out of range for characteristic index
         extension: {
+          subindex: 0,
           name: "Valid Name",
-          description: "A valid description.",
-          value: 100
+          description: "A valid description."
         }
       },
       defaults: {
@@ -54,9 +54,9 @@ describe("Characteristic Trait Definition Schema Validation", function () {
       definition: {
         index: { value: 45 },
         extension: {
+          subindex: 300,
           name: "Valid Name",
-          description: "A valid description.",
-          value: 300 // Exceeds maximum of 255
+          description: "A valid description."
         }
       },
       defaults: {
@@ -78,9 +78,9 @@ describe("Characteristic Trait Definition Schema Validation", function () {
       definition: {
         index: { value: 45 },
         extension: {
+          subindex: 100,
           name: "Valid Name",
-          description: "A valid description.",
-          value: 100
+          description: "A valid description."
         }
       },
       defaults: {
@@ -102,9 +102,9 @@ describe("Characteristic Trait Definition Schema Validation", function () {
       definition: {
         index: { value: 45 },
         extension: {
+          subindex: 0,
           name: "Valid Name",
-          description: "A valid description.",
-          value: 100
+          description: "A valid description."
         }
       },
       defaults: {
@@ -144,9 +144,9 @@ describe("Characteristic Trait Definition Schema Validation", function () {
       definition: {
         index: { value: 45 },
         extension: {
+          subindex: 0,
           name: "Valid Name",
           description: "A valid description.",
-          value: 100
         }
       }
       // Missing 'defaults' property

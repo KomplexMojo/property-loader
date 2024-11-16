@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { CompiledDataPixelDefinition } from "../src/datapixel.definition.schema.js";
+import { CompiledDataPixelDefinition } from "../schemas/datapixel.definition.schema.js";
 
 describe("DataPixel Schema Validation", function () {
   

@@ -1,15 +1,15 @@
 import { expect } from "chai";
-import { CompiledBehaviourDefinitionSchema } from "../src/behaviour.definition.schema.js";
+import { CompiledBehaviourDefinitionSchema } from "../schemas/behaviour.definition.schema.js";
 
 describe("Behaviour Definition Schema Validation", function () {
-  
+
   it("should validate a correct Behaviour Definition object", function () {
     const validBehaviourDefinition = {
       index: { value: 90 },
       extension: {
+        subindex: 100,
         name: "Valid Name",
         description: "A valid description within length limits.",
-        value: 100
       }
     };
 
@@ -22,9 +22,9 @@ describe("Behaviour Definition Schema Validation", function () {
     const invalidBehaviourDefinition = {
       index: { value: 140 }, // Out of range for behaviour index
       extension: {
+        subindex: 100,
         name: "Valid Name",
         description: "A valid description.",
-        value: 100
       }
     };
 
@@ -39,9 +39,9 @@ describe("Behaviour Definition Schema Validation", function () {
     const invalidBehaviourDefinition = {
       index: { value: 90 },
       extension: {
+        subindex: 100,
         name: "A".repeat(65), // Exceeds 64 character max length
         description: "A valid description.",
-        value: 100
       }
     };
 
@@ -56,9 +56,9 @@ describe("Behaviour Definition Schema Validation", function () {
     const invalidBehaviourDefinition = {
       index: { value: 90 },
       extension: {
+        subindex: 100,
         name: "Valid Name",
         description: "D".repeat(257), // Exceeds 256 character max length
-        value: 100
       }
     };
 
@@ -73,9 +73,9 @@ describe("Behaviour Definition Schema Validation", function () {
     const invalidBehaviourDefinition = {
       index: { value: 90 },
       extension: {
+        subindex: 300, // Exceeds maximum of 255
         name: "Valid Name",
         description: "A valid description.",
-        value: 300 // Exceeds maximum of 255
       }
     };
 
@@ -90,9 +90,9 @@ describe("Behaviour Definition Schema Validation", function () {
     const invalidBehaviourDefinition = {
       index: { value: 90 },
       extension: {
+        subindex: 100,
         name: "Valid Name",
         // Missing 'description'
-        value: 100
       }
     };
 
@@ -107,9 +107,9 @@ describe("Behaviour Definition Schema Validation", function () {
     const invalidBehaviourDefinition = {
       index: { value: 90 },
       extension: {
+        subindex: 100,
         name: "Valid Name",
         description: "A valid description.",
-        value: 100,
         extraProperty: "Not allowed" // Additional property not allowed
       }
     };

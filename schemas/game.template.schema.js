@@ -1,6 +1,6 @@
 import Ajv from "ajv";
 import addErrors from "ajv-errors";
-import IndexRangeRegistry from "./indexregistry.js";
+import IndexRangeRegistry from "./_indexregistry.js";
 
 // index schemas
 import { VisualizationIndexSchema } from "./visualization.index.schema.js";

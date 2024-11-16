@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { CompiledVisualPixelSchema } from "../src/visualpixel.definition.schema.js";
+import { CompiledVisualPixelSchema } from "../schemas/visualpixel.definition.schema.js";
 
 describe("Visual Pixel Definition Schema Validation", function () {
 

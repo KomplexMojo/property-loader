@@ -1,6 +1,6 @@
 import { expect } from "chai";
-import { CompiledTriggerIndex } from "../src/trigger.index.schema.js";
-import IndexRangeRegistry from "../src/indexregistry.js";
+import { CompiledTriggerIndex } from "../schemas/trigger.index.schema.js";
+import IndexRangeRegistry from "../schemas/_indexregistry.js";
 
 const { start: triggerStart, end: triggerEnd } = IndexRangeRegistry.triggerRange;
 

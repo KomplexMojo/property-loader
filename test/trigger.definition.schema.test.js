@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { CompiledTriggerHeaderSchema } from "../src/trigger.definition.schema.js";
+import { CompiledTriggerHeaderSchema } from "../schemas/trigger.definition.schema.js";
 
 describe("Trigger Definition Schema Validation", function () {
   
@@ -7,9 +7,9 @@ describe("Trigger Definition Schema Validation", function () {
     const validTriggerDefinition = {
       index: { value: 170 }, // Assuming within the trigger index range
       extension: {
+        subindex: 100,
         name: "Valid Name",
-        description: "A valid description that does not exceed the maximum length.",
-        value: 100
+        description: "A valid description that does not exceed the maximum length."
       }
     };
 
@@ -21,9 +21,9 @@ describe("Trigger Definition Schema Validation", function () {
   it("should invalidate when 'index' is missing", function () {
     const invalidTriggerDefinition = {
       extension: {
+        subindex: 100,
         name: "Valid Name",
-        description: "A valid description.",
-        value: 100
+        description: "A valid description."
       }
     };
 
@@ -52,9 +52,9 @@ describe("Trigger Definition Schema Validation", function () {
     const invalidTriggerDefinition = {
       index: { value: 100 },
       extension: {
+        subindex: 100,
         name: "Valid Name",
-        description: "A valid description.",
-        value: 100
+        description: "A valid description."
       },
       extraProperty: "Not allowed" // Additional property
     };
@@ -71,9 +71,9 @@ describe("Trigger Definition Schema Validation", function () {
     const invalidTriggerDefinition = {
       index: { value: 300 }, // Out of range for trigger index
       extension: {
+        subindex: 100,
         name: "Valid Name",
-        description: "A valid description.",
-        value: 100
+        description: "A valid description."
       }
     };
 
@@ -89,9 +89,9 @@ describe("Trigger Definition Schema Validation", function () {
     const invalidTriggerDefinition = {
       index: { value: 100 },
       extension: {
+        subindex: 100,
         name: "A".repeat(65), // Exceeds max length for name
-        description: "D".repeat(257), // Exceeds max length for description
-        value: 300 // Exceeds maximum allowed value
+        description: "D".repeat(257) // Exceeds max length for description
       }
     };
 

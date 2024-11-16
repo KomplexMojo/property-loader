@@ -2,15 +2,16 @@
 
 import Ajv from "ajv";
 import addErrors from "ajv-errors";
-import IndexRangeRegistry from "./indexregistry.js";
+import IndexRangeRegistry from "./_indexregistry.js";
 
 // index schemas
+import { EventIndexSchema } from "./event.index.schema.js";
 import { TriggerIndexSchema } from "./trigger.index.schema.js";
 import { EffectIndexSchema } from "./effect.index.schema.js";
 import { ConditionIndexSchema } from "./condition.index.schema.js";
 
 // definition schemas
-import { HeaderDefinitionSchema } from "./header.definition.schema.js";
+import { EventDefinitionSchema } from "./event.definition.schema.js";
 import { ProfileDefaultDefinitionSchema } from "./profiledefault.definition.schema.js";
 
 // instance schemas
@@ -18,6 +19,7 @@ import { TriggerInstanceSchema } from "./trigger.instance.schema.js";
 import { EffectInstanceSchema } from "./effect.instance.schema.js";
 import { ConditionInstanceSchema } from "./condition.instance.schema.js";
 import { PropertyInstanceSchema } from "./property.instance.schema.js";
+import { EventInstanceSchema } from "./event.instance.schema.js";
 
 // Initialize AJV
 const ajv = new Ajv({ allErrors: true });
@@ -27,25 +29,31 @@ addErrors(ajv);
 const { start: triggerStart, end: triggerEnd } = IndexRangeRegistry.triggerRange;
 const { start: effectStart, end: effectEnd } = IndexRangeRegistry.eventRange;
 const { start: conditionStart, end: conditionEnd } = IndexRangeRegistry.conditionRange;
+const { start: eventStart, end: eventEnd } = IndexRangeRegistry.eventRange;
 
 // Calculate maxItems dynamically
+const eventsMaxItems = eventEnd - eventStart + 1;
 const triggersMaxItems = triggerEnd - triggerStart + 1;
 const effectsMaxItems = effectEnd - effectStart + 1;
-const conditionsMaxItems = conditionEnd - conditionStart +1;
+const conditionsMaxItems = conditionEnd - conditionStart + 1;
 
 // supporting schemas
+ajv.addSchema(EventIndexSchema, "http://example.com/schemas/event.index.json");
 ajv.addSchema(TriggerIndexSchema, "http://example.com/schemas/trigger.index.json");
 ajv.addSchema(EffectIndexSchema, "http://example.com/schemas/effect.index.json");
 ajv.addSchema(ConditionIndexSchema, "http://example.com/schemas/condition.index.json");
 
 // schemas that are directly used.
 
-ajv.addSchema(HeaderDefinitionSchema, "http://example.com/schemas/header.definition.json");
+ajv.addSchema(EventDefinitionSchema, "http://example.com/schemas/event.definition.json");
 ajv.addSchema(ProfileDefaultDefinitionSchema, "http://example.com/schemas/profiledefault.definition.json");
+
+// instance schemas
 ajv.addSchema(PropertyInstanceSchema, "http://example.com/schemas/property.instance.json");
 ajv.addSchema(TriggerInstanceSchema, "http://example.com/schemas/trigger.instance.json");
 ajv.addSchema(EffectInstanceSchema, "http://example.com/schemas/effect.instance.json");
 ajv.addSchema(ConditionInstanceSchema, "http://example.com/schemas/condition.instance.json");
+ajv.addSchema(EventInstanceSchema, "http://example.com/schemas/event.instance.json");
 
 // Define the EventManager schema with error handling
 const EventTemplateSchema = {
@@ -53,9 +61,9 @@ const EventTemplateSchema = {
   $id: "http://example.com/schemas/event.template.json",
   type: "object",
   properties: {
-    header: {
-      $ref: "http://example.com/schemas/header.definition.json",
-      errorMessage: "The 'header' must be a valid event header.",
+    event: {
+      $ref: "http://example.com/schemas/event.instance.json",
+      errorMessage: "The 'event' must be a valid event instance.",
     },
     defaults: {
       type: "array",
@@ -102,11 +110,11 @@ const EventTemplateSchema = {
       },
     },
   },
-  required: ["header", "triggers", "effects", "conditions"],
+  required: ["event", "triggers", "effects", "conditions"],
   additionalProperties: false,
   errorMessage: {
     required: {
-      header: "The 'header' property is required.",
+      header: "The 'event' property is required.",
       triggers: "The 'triggers' property is required.",
       effects: "The 'effects' property is required.",
       conditions: "The 'conditions' property is required.",

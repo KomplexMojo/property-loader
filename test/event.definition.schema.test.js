@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { CompiledEventDefinitionSchema } from "../src/event.definition.schema.js";
+import { CompiledEventDefinitionSchema } from "../schemas/event.definition.schema.js";
 
 describe("Event Definition Schema Validation", function () {
 
@@ -7,9 +7,9 @@ describe("Event Definition Schema Validation", function () {
     const validEventDefinition = {
       index: { value: 140 },
       extension: {
+        subindex: 100,
         name: "Valid Event Name",
-        description: "This is a valid description within allowed length.",
-        value: 100
+        description: "This is a valid description within allowed length."
       }
     };
 
@@ -22,9 +22,9 @@ describe("Event Definition Schema Validation", function () {
     const invalidEventDefinition = {
       index: { value: 160 }, // Out of range for event index
       extension: {
+        subindex: 100,
         name: "Valid Event Name",
-        description: "This is a valid description within allowed length.",
-        value: 100
+        description: "This is a valid description within allowed length."
       }
     };
 
@@ -39,9 +39,9 @@ describe("Event Definition Schema Validation", function () {
     const invalidEventDefinition = {
       index: { value: 140 },
       extension: {
+        subindex: 0,
         name: "A".repeat(65), // Exceeds 64 character max length
-        description: "A valid description.",
-        value: 100
+        description: "A valid description."
       }
     };
 
@@ -56,9 +56,9 @@ describe("Event Definition Schema Validation", function () {
     const invalidEventDefinition = {
       index: { value: 140 },
       extension: {
+        subindex: 100,
         name: "Valid Event Name",
         description: "D".repeat(257), // Exceeds 256 character max length
-        value: 100
       }
     };
 
@@ -73,9 +73,9 @@ describe("Event Definition Schema Validation", function () {
     const invalidEventDefinition = {
       index: { value: 140 },
       extension: {
+        subindex: 300,
         name: "Valid Event Name",
-        description: "A valid description.",
-        value: 300 // Exceeds maximum of 255
+        description: "A valid description."
       }
     };
 
@@ -90,9 +90,9 @@ describe("Event Definition Schema Validation", function () {
     const invalidEventDefinition = {
       index: { value: 140 },
       extension: {
-        name: "Valid Event Name",
+        subindex: 100,
+        name: "Valid Event Name"
         // Missing 'description'
-        value: 100
       }
     };
 
@@ -107,9 +107,9 @@ describe("Event Definition Schema Validation", function () {
     const invalidEventDefinition = {
       index: { value: 140 },
       extension: {
+        subindex: 100,
         name: "Valid Event Name",
         description: "A valid description.",
-        value: 100,
         extraProperty: "Not allowed" // Additional property not allowed
       }
     };

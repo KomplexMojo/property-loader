@@ -2,7 +2,6 @@
 
 import Ajv from "ajv";
 import addErrors from "ajv-errors";
-import IndexRangeRegistry from "./indexregistry.js";
 import { CharacteristicIndexSchema } from "./characteristic.index.schema.js";
 import { DefinitionExtensionSchema } from "./definition.extension.schema.js";
 

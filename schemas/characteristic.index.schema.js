@@ -1,6 +1,6 @@
 import Ajv from "ajv";
 import addErrors from "ajv-errors";
-import IndexRangeRegistry from "./indexregistry.js";
+import IndexRangeRegistry from "./_indexregistry.js";
 
 // Initialize AJV
 const ajv = new Ajv({ allErrors: true });

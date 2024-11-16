@@ -1,13 +1,13 @@
 import { expect } from "chai";
-import { CompiledTriggerInstance } from "../src/trigger.instance.schema.js";
+import { CompiledTriggerInstance } from "../schemas/trigger.instance.schema.js";
 
 describe("Trigger Instance Schema Validation", function () {
   
   it("should validate a correct Trigger Instance object", function () {
     const validTriggerInstance = {
       index: { value: 170 }, // Assuming 50 is within the valid trigger index range
-      primary: { value: 1 }, // Assuming valid property instance
-      secondary: { value: 2 } // Assuming valid property instance
+      subindex: { value: 1 }, // Assuming valid property instance
+      value: { value: 2 } // Assuming valid property instance
     };
 
     const isValid = CompiledTriggerInstance(validTriggerInstance);
@@ -17,8 +17,8 @@ describe("Trigger Instance Schema Validation", function () {
 
   it("should invalidate when 'index' is missing", function () {
     const invalidTriggerInstance = {
-      primary: { value: 1 },
-      secondary: { value: 2 }
+      subindex: { value: 1 },
+      value: { value: 2 }
     };
 
     const isValid = CompiledTriggerInstance(invalidTriggerInstance);
@@ -32,7 +32,7 @@ describe("Trigger Instance Schema Validation", function () {
   it("should invalidate when 'primary' is missing", function () {
     const invalidTriggerInstance = {
       index: { value: 50 },
-      secondary: { value: 2 }
+      value: { value: 2 }
     };
 
     const isValid = CompiledTriggerInstance(invalidTriggerInstance);
@@ -46,7 +46,7 @@ describe("Trigger Instance Schema Validation", function () {
   it("should invalidate when 'secondary' is missing", function () {
     const invalidTriggerInstance = {
       index: { value: 50 },
-      primary: { value: 1 }
+      subindex: { value: 1 }
     };
 
     const isValid = CompiledTriggerInstance(invalidTriggerInstance);
@@ -60,8 +60,8 @@ describe("Trigger Instance Schema Validation", function () {
   it("should invalidate when 'index' is out of the valid range", function () {
     const invalidTriggerInstance = {
       index: { value: 300 }, // Out of range
-      primary: { value: 1 },
-      secondary: { value: 2 }
+      subindex: { value: 1 },
+      value: { value: 2 }
     };
 
     const isValid = CompiledTriggerInstance(invalidTriggerInstance);
@@ -75,8 +75,8 @@ describe("Trigger Instance Schema Validation", function () {
   it("should invalidate when additional properties are present", function () {
     const invalidTriggerInstance = {
       index: { value: 50 },
-      primary: { value: 1 },
-      secondary: { value: 2 },
+      subindex: { value: 1 },
+      value: { value: 2 },
       extraProperty: "Not allowed"
     };
 
@@ -91,8 +91,8 @@ describe("Trigger Instance Schema Validation", function () {
   it("should invalidate when 'primary' or 'secondary' properties are invalid", function () {
     const invalidTriggerInstance = {
       index: { value: 50 },
-      primary: { value: -1 }, // Invalid value for property instance
-      secondary: { value: 300 } // Exceeds valid property value range
+      subindex: { value: -1 }, // Invalid value for property instance
+      value: { value: 300 } // Exceeds valid property value range
     };
 
     const isValid = CompiledTriggerInstance(invalidTriggerInstance);

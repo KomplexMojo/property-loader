@@ -1,6 +1,6 @@
 import { expect } from "chai";
-import { CompiledConditionIndexSchema } from "../src/condition.index.schema.js";
-import IndexRangeRegistry from "../src/indexregistry.js";
+import { CompiledConditionIndexSchema } from "../schemas/condition.index.schema.js";
+import IndexRangeRegistry from "../schemas/_indexregistry.js";
 
 const { start: conditionStart, end: conditionEnd } = IndexRangeRegistry.conditionRange;
 

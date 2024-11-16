@@ -1,13 +1,13 @@
 import { expect } from "chai";
-import { CompiledEffectPropertyInstanceSchema } from "../src/effect.instance.schema.js";
+import { CompiledEffectPropertyInstanceSchema } from "../schemas/effect.instance.schema.js";
 
 describe("Effect Instance Schema Validation", function () {
 
   it("should validate a correct Effect Instance object", function () {
     const validEffectInstance = {
       index: { value: 192 }, // Valid index within effect range
-      primary: { value: 100 },
-      secondary: { value: 50 }
+      subindex: { value: 100 },
+      value: { value: 50 }
     };
 
     const isValid = CompiledEffectPropertyInstanceSchema(validEffectInstance);
@@ -18,8 +18,8 @@ describe("Effect Instance Schema Validation", function () {
   it("should invalidate when 'index' is out of range", function () {
     const invalidEffectInstance = {
       index: { value: 224 }, // Out of range for effect index
-      primary: { value: 100 },
-      secondary: { value: 50 }
+      subindex: { value: 100 },
+      value: { value: 50 }
     };
 
     const isValid = CompiledEffectPropertyInstanceSchema(invalidEffectInstance);
@@ -32,8 +32,8 @@ describe("Effect Instance Schema Validation", function () {
   it("should invalidate when 'primary' value is out of valid property range", function () {
     const invalidEffectInstance = {
       index: { value: 192 },
-      primary: { value: 300 }, // Out of range for property instance
-      secondary: { value: 50 }
+      subindex: { value: 300 }, // Out of range for property instance
+      value: { value: 50 }
     };
 
     const isValid = CompiledEffectPropertyInstanceSchema(invalidEffectInstance);
@@ -46,8 +46,8 @@ describe("Effect Instance Schema Validation", function () {
   it("should invalidate when 'secondary' value is out of valid property range", function () {
     const invalidEffectInstance = {
       index: { value: 192 },
-      primary: { value: 100 },
-      secondary: { value: 300 } // Out of range for property instance
+      subindex: { value: 100 },
+      value: { value: 300 } // Out of range for property instance
     };
 
     const isValid = CompiledEffectPropertyInstanceSchema(invalidEffectInstance);
@@ -73,8 +73,8 @@ describe("Effect Instance Schema Validation", function () {
   it("should invalidate when additional properties are present", function () {
     const invalidEffectInstance = {
       index: { value: 192 },
-      primary: { value: 100 },
-      secondary: { value: 50 },
+      subindex: { value: 100 },
+      value: { value: 50 },
       extraProperty: "Not allowed" // Additional property not allowed
     };
 

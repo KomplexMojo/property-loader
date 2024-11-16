@@ -1,6 +1,6 @@
 import { expect } from "chai";
-import { CompiledPropertyDefinitionSchema } from "../src/property.definition.schema.js";
-import IndexRangeRegistry from "../src/indexregistry.js";
+import { CompiledPropertyDefinitionSchema } from "../schemas/property.definition.schema.js";
+import IndexRangeRegistry from "../schemas/_indexregistry.js";
 
 const { start: namePropertyStart, end: namePropertyEnd } = IndexRangeRegistry.namePropertyRange;
 const { start: descriptionPropertyStart, end: descriptionPropertyEnd } = IndexRangeRegistry.descriptionPropertyRange;

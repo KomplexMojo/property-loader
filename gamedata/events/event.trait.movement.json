@@ -1,0 +1,34 @@
+{
+    "header": {
+        "name": "Movement Related Events",
+        "description": "This is a valid event header description."
+    },
+    "defaults": [
+        {
+            "index":  1,
+            "name": "Movement",
+            "value": 50
+        }
+    ],
+    "triggers": [
+        {
+            "index": { "value": 160 },  
+            "primary": { "value": 1 },
+            "secondary": { "value": 5 }
+        }
+    ],
+    "effects": [
+        {
+            "index": { "value": 192 },  
+            "primary": { "value": 1 },
+            "secondary": { "value": 8 }
+        }
+    ],
+    "conditions": [
+        {
+            "index": { "value": 224 },  
+            "primary": { "value": 6 },
+            "secondary": { "value": 3 }
+        }
+    ]
+}

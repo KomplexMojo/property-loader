@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { CompiledPixelsDefinitionSchema } from "../src/pixels.definition.schema.js";
+import { CompiledPixelsDefinitionSchema } from "../schemas/pixels.definition.schema.js";
 
 describe("Pixel Array Schema Validation", function () {
 
