@@ -2,15 +2,14 @@
 
 import Ajv from "ajv";
 import addErrors from "ajv-errors";
-import IndexRangeRegistry from "./_indexregistry.js";
+import { PropertyInstanceSchema } from "./property.instance.schema.js";
 
 // Initialize AJV
 const ajv = new Ajv({ allErrors: true });
 
 addErrors(ajv);
 
-const { start: profileDefaultsStart, end: profileDefaultsEnd } = IndexRangeRegistry.profileDefaultsRange;
-const profileDefaultsMaxItems = profileDefaultsEnd - profileDefaultsStart +1;
+ajv.addSchema(PropertyInstanceSchema, "http://example.com/schemas/property.instance.json");
 
 // Define the DataPixel schema with error handling
 const ProfileDefaultDefinitionSchema = {
@@ -19,15 +18,12 @@ const ProfileDefaultDefinitionSchema = {
   type: "object",
   properties: {
     index: {
-      type: "integer",
-      minimum: 1,
-      maximum: profileDefaultsMaxItems,
-      description: "Unique index in the uint8 range.",
-      errorMessage: {
-        type: "The 'index' must be an integer.",
-        minimum: `The 'index' must be at least 0.`,
-        maximum: `The 'index' must be at most ${profileDefaultsMaxItems}.`,
-      },
+      $ref: "http://example.com/schemas/property.instance.json",
+      errorMessage: "The 'sub index' must be a valid property instance even if it is set to 0.",
+    },
+    subindex: {
+      $ref: "http://example.com/schemas/property.instance.json",
+      errorMessage: "The 'sub index' must be a valid property instance even if it is set to 0.",
     },
     name: {
       type: "string",
@@ -59,7 +55,7 @@ const ProfileDefaultDefinitionSchema = {
       errorMessage: "The 'value' must be either a boolean or an integer between 0 and 255.",
     },
   },
-  required: ["index", "name", "value"],
+  required: ["index", "subindex", "name", "value"],
   additionalProperties: false,
   errorMessage: {
     required: {

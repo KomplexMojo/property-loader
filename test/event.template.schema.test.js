@@ -5,18 +5,18 @@ describe("Event Template Schema Validation", function () {
 
     it("should validate a correct Event Template object..", function () {
         const validEventTemplate = {
+            defaults: [
+                {
+                    index: { value: 1 },
+                    subindex: { value: 100 },
+                    value: { value: 50 }
+                },
+            ],
             event: {
                 index: { value: 140 },  // Ensure index is an object here
                 subindex: { value: 100 },
                 value: { value: 50 }
             },
-            defaults: [
-                {
-                    index: 1,
-                    name: "Default Profile",
-                    value: 50
-                },
-            ],
             triggers: [
                 {
                     index: { value: 160 },  // Ensure index is an object here

@@ -2,9 +2,14 @@ import { expect } from "chai";
 import { CompiledCharacteristicTraitDefinitionSchema } from "../schemas/characteristic.trait.definition.schema.js";
 
 describe("Characteristic Trait Definition Schema Validation", function () {
-  
+
   it("should validate a correct Characteristic Trait Definition object", function () {
     const validCharacteristicTraitDefinition = {
+      defaults: {
+        index: { value: 224 }, // Assuming this is within the condition index range
+        subindex: { value: 10 }, // Within the property value range
+        value: { value: 20 } // Within the property value range
+      },
       definition: {
         index: { value: 45 }, // Valid index for characteristic range
         extension: {
@@ -13,11 +18,6 @@ describe("Characteristic Trait Definition Schema Validation", function () {
           description: "A valid description."
         }
       },
-      defaults: {
-        index: 1,
-        name: "Default Profile",
-        value: 50
-      }
     };
 
     const isValid = CompiledCharacteristicTraitDefinitionSchema(validCharacteristicTraitDefinition);
@@ -27,6 +27,11 @@ describe("Characteristic Trait Definition Schema Validation", function () {
 
   it("should invalidate when the characteristic index is out of range", function () {
     const invalidCharacteristicTraitDefinition = {
+      defaults: {
+        index: { value: 224 }, // Assuming this is within the condition index range
+        subindex: { value: 10 }, // Within the property value range
+        value: { value: 20 } // Within the property value range
+      },
       definition: {
         index: { value: 90 }, // Out of range for characteristic index
         extension: {
@@ -34,11 +39,6 @@ describe("Characteristic Trait Definition Schema Validation", function () {
           name: "Valid Name",
           description: "A valid description."
         }
-      },
-      defaults: {
-        index: 1,
-        name: "Default Profile",
-        value: 50
       }
     };
 
@@ -51,6 +51,11 @@ describe("Characteristic Trait Definition Schema Validation", function () {
 
   it("should invalidate when the extension value exceeds maximum range", function () {
     const invalidCharacteristicTraitDefinition = {
+      defaults: {
+        index: { value: 224 }, // Assuming this is within the condition index range
+        subindex: { value: 10 }, // Within the property value range
+        value: { value: 20 } // Within the property value range
+      },
       definition: {
         index: { value: 45 },
         extension: {
@@ -58,11 +63,6 @@ describe("Characteristic Trait Definition Schema Validation", function () {
           name: "Valid Name",
           description: "A valid description."
         }
-      },
-      defaults: {
-        index: 1,
-        name: "Default Profile",
-        value: 50
       }
     };
 
@@ -75,6 +75,10 @@ describe("Characteristic Trait Definition Schema Validation", function () {
 
   it("should invalidate when required properties are missing in defaults", function () {
     const invalidCharacteristicTraitDefinition = {
+      defaults: {
+        index: { value: 224 }, // Assuming this is within the condition index range
+        value: { value: 20 } // Within the property value range
+      },
       definition: {
         index: { value: 45 },
         extension: {
@@ -83,11 +87,6 @@ describe("Characteristic Trait Definition Schema Validation", function () {
           description: "A valid description."
         }
       },
-      defaults: {
-        index: 1,
-        // Missing 'name' property
-        value: 50
-      }
     };
 
     const isValid = CompiledCharacteristicTraitDefinitionSchema(invalidCharacteristicTraitDefinition);
@@ -99,6 +98,12 @@ describe("Characteristic Trait Definition Schema Validation", function () {
 
   it("should invalidate when additional properties are present", function () {
     const invalidCharacteristicTraitDefinition = {
+      defaults: {
+        index: { value: 224 }, // Assuming this is within the condition index range
+        subindex: { value: 10 }, // Within the property value range
+        subsubindex: { value: 10 }, // Within the property value range
+        value: { value: 20 } // Within the property value range
+      },
       definition: {
         index: { value: 45 },
         extension: {
@@ -107,12 +112,6 @@ describe("Characteristic Trait Definition Schema Validation", function () {
           description: "A valid description."
         }
       },
-      defaults: {
-        index: 1,
-        name: "Default Profile",
-        value: 50,
-        extraProperty: "Not allowed" // Additional property not allowed
-      }
     };
 
     const isValid = CompiledCharacteristicTraitDefinitionSchema(invalidCharacteristicTraitDefinition);
@@ -126,9 +125,9 @@ describe("Characteristic Trait Definition Schema Validation", function () {
     const invalidCharacteristicTraitDefinition = {
       // Missing 'definition' property
       defaults: {
-        index: 1,
-        name: "Default Profile",
-        value: 50
+        index: { value: 224 }, // Assuming this is within the condition index range
+        subindex: { value: 10 }, // Within the property value range
+        value: { value: 20 } // Within the property value range
       }
     };
 

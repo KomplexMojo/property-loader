@@ -10,16 +10,13 @@ import { TriggerIndexSchema } from "./trigger.index.schema.js";
 import { EffectIndexSchema } from "./effect.index.schema.js";
 import { ConditionIndexSchema } from "./condition.index.schema.js";
 
-// definition schemas
-import { EventDefinitionSchema } from "./event.definition.schema.js";
-import { ProfileDefaultDefinitionSchema } from "./profiledefault.definition.schema.js";
-
 // instance schemas
 import { TriggerInstanceSchema } from "./trigger.instance.schema.js";
 import { EffectInstanceSchema } from "./effect.instance.schema.js";
 import { ConditionInstanceSchema } from "./condition.instance.schema.js";
 import { PropertyInstanceSchema } from "./property.instance.schema.js";
 import { EventInstanceSchema } from "./event.instance.schema.js";
+import { ProfileDefaultInstanceSchema } from "./profiledefault.instance.schema.js";
 
 // Initialize AJV
 const ajv = new Ajv({ allErrors: true });
@@ -43,17 +40,13 @@ ajv.addSchema(TriggerIndexSchema, "http://example.com/schemas/trigger.index.json
 ajv.addSchema(EffectIndexSchema, "http://example.com/schemas/effect.index.json");
 ajv.addSchema(ConditionIndexSchema, "http://example.com/schemas/condition.index.json");
 
-// schemas that are directly used.
-
-ajv.addSchema(EventDefinitionSchema, "http://example.com/schemas/event.definition.json");
-ajv.addSchema(ProfileDefaultDefinitionSchema, "http://example.com/schemas/profiledefault.definition.json");
-
 // instance schemas
 ajv.addSchema(PropertyInstanceSchema, "http://example.com/schemas/property.instance.json");
 ajv.addSchema(TriggerInstanceSchema, "http://example.com/schemas/trigger.instance.json");
 ajv.addSchema(EffectInstanceSchema, "http://example.com/schemas/effect.instance.json");
 ajv.addSchema(ConditionInstanceSchema, "http://example.com/schemas/condition.instance.json");
 ajv.addSchema(EventInstanceSchema, "http://example.com/schemas/event.instance.json");
+ajv.addSchema(ProfileDefaultInstanceSchema, "http://example.com/schemas/profiledefault.instance.json");
 
 // Define the EventManager schema with error handling
 const EventTemplateSchema = {
@@ -61,20 +54,20 @@ const EventTemplateSchema = {
   $id: "http://example.com/schemas/event.template.json",
   type: "object",
   properties: {
-    event: {
-      $ref: "http://example.com/schemas/event.instance.json",
-      errorMessage: "The 'event' must be a valid event instance.",
-    },
     defaults: {
       type: "array",
       minItems: 1,
       maxItems: 10,
-      items: { $ref: "http://example.com/schemas/profiledefault.definition.json" },
+      items: { $ref: "http://example.com/schemas/profiledefault.instance.json" },
       errorMessage: {
         type: "The 'defaults' must be an array.",
         minItems: "The 'defaults' must have at least 0 items.",
         maxItems: "The 'defaults' must not exceed 10 items.",
       },
+    },
+    event: {
+      $ref: "http://example.com/schemas/event.instance.json",
+      errorMessage: "The 'event' must be a valid event instance.",
     },
     triggers: {
       type: "array",

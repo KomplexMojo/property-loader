@@ -14,14 +14,14 @@ const PropertyInstanceSchema = {
   $id: "http://example.com/schemas/property.instance.json",
   properties: {
     value: {
-      type: "integer",
-      minimum: propertyValueStart,
-      maximum: propertyvalueEnd,
-      description: "Integer value within the defined property range.",
+      oneOf: [
+        { type: "boolean" },
+        { type: "integer", minimum: propertyValueStart, maximum: propertyvalueEnd },
+        { type: "string" },
+      ],
+      description: "The 'value' can be any valid JSON data type.",
       errorMessage: {
-        type: "The 'value' must be an integer.",
-        minimum: `The 'value' must be at least ${propertyValueStart}.`,
-        maximum: `The 'value' must be at most ${propertyvalueEnd}.`,
+        type: "The 'value' must be a valid JSON data type.",
       },
     },
   },

@@ -12,6 +12,7 @@ import { EventIndexSchema } from "./event.index.schema.js";
 import { TriggerIndexSchema } from "./trigger.index.schema.js";
 
 // definition schemas
+import { PropertyInstanceSchema } from "./property.instance.schema.js";
 import { DefinitionExtensionSchema } from "./definition.extension.schema.js";
 import { BehaviourDefinitionSchema } from "./behaviour.definition.schema.js";
 import { CharacteristicDefinitionSchema } from "./characteristic.definition.schema.js";
@@ -30,8 +31,8 @@ import { VisualPixelDefinitionSchema } from "./visualpixel.definition.schema.js"
 // instance schemas
 import { ConditionInstanceSchema } from "./condition.instance.schema.js";
 import { EffectInstanceSchema } from "./effect.instance.schema.js";
-import { PropertyInstanceSchema } from "./property.instance.schema.js";
 import { TriggerInstanceSchema } from "./trigger.instance.schema.js";
+import { ProfileDefaultInstanceSchema } from "./profiledefault.instance.schema.js";
 
 // trait schema
 import { BehaviourTraitDefinitionSchema } from "./behaviour.trait.definition.schema.js";
@@ -72,6 +73,9 @@ ajv.addSchema(EffectIndexSchema, "http://example.com/schemas/effect.index.json")
 ajv.addSchema(EventIndexSchema, "http://example.com/schemas/event.index.json");
 ajv.addSchema(TriggerIndexSchema, "http://example.com/schemas/trigger.index.json");
 
+ajv.addSchema(PropertyInstanceSchema,"http://example.com/schemas/property.instance.schema.json");
+ajv.addSchema(ProfileDefaultInstanceSchema,"http://example.com/schemas/profiledefault.instance.schema.json");
+
 // definition schemas
 ajv.addSchema(DefinitionExtensionSchema,"http://example.com/schemas/definition.extension.json");
 ajv.addSchema(VisualizationDefinitionSchema,"http://example.com/schemas/visualization.definition.json");
@@ -91,7 +95,6 @@ ajv.addSchema(VisualPixelDefinitionSchema,"http://example.com/schemas/visualpixe
 // instance schemas
 ajv.addSchema(ConditionInstanceSchema,"http://example.com/schemas/condition.instance.schema.json");
 ajv.addSchema(EffectInstanceSchema,"http://example.com/schemas/effect.instance.schema.json");
-ajv.addSchema(PropertyInstanceSchema,"http://example.com/schemas/property.instance.schema.json");
 ajv.addSchema(TriggerInstanceSchema,"http://example.com/schemas/trigger.instance.schema.json");
 
 // trait schema

@@ -2,46 +2,44 @@ import { expect } from "chai";
 import { CompiledBehaviourTraitDefinitionSchema } from "../schemas/behaviour.trait.definition.schema.js";
 
 describe("Behaviour Trait Definition Schema Validation", function () {
-  
+
   it("should validate a correct Behaviour Trait Definition object", function () {
     const validBehaviourTraitDefinition = {
+      defaults: {
+        index: { value: 100 },
+        subindex: { value: 100 },
+        value: { value: 100 }
+      },
       definition: {
         index: { value: 90 }, // Within valid range for behaviours
         extension: {
           subindex: 0,
-          name: "Valid Behaviour Name",
+          name: "Valid Name",
           description: "A valid description for behaviour."
         }
-      },
-      defaults: {
-        index: 1,
-        name: "Default Profile",
-        value: true,
       }
     };
 
     const isValid = CompiledBehaviourTraitDefinitionSchema(validBehaviourTraitDefinition);
     expect(isValid).to.be.true;
-    if (CompiledBehaviourTraitDefinitionSchema.errors) {
-      console.error("Validation errors for out-of-range behaviour index:", CompiledBehaviourTraitDefinitionSchema.errors);
-    }
+    console.error("Validation errors for characteristic index out of range:", CompiledBehaviourTraitDefinitionSchema.errors);
     expect(CompiledBehaviourTraitDefinitionSchema.errors).to.be.null;
   });
 
   it("should invalidate when behaviour index is out of range", function () {
     const invalidBehaviourTraitDefinition = {
+      defaults: {
+        index: { value: 1 },
+        subindex: { value: 0 },
+        value: { value: true }
+      },
       definition: {
-        index: { value: 140 }, // Out of range for behaviour index
+        index: 140, // Out of range for behaviour index
         extension: {
           subindex: 0,
           name: "Valid Behaviour Name",
           description: "A valid description."
         }
-      },
-      defaults: {
-        index: 1,
-        name: "Default Profile",
-        value: true,
       }
     };
 
@@ -52,99 +50,98 @@ describe("Behaviour Trait Definition Schema Validation", function () {
     }
   });
 
-  it("should invalidate when the default profile name exceeds the maximum length", function () {
+  it("should invalidate when required properties are missing", function () {
     const invalidBehaviourTraitDefinition = {
-      definition: {
-        index: { value: 90 },
-        extension: {
-          subindex: 0,
-          name: "Valid Behaviour Name",
-          description: "A valid description.",
-        }
-      },
       defaults: {
-        index: 1,
-        name: "A".repeat(65), // Exceeds 64 character max length
-        value: true,
-      }
-    };
-
-    const isValid = CompiledBehaviourTraitDefinitionSchema(invalidBehaviourTraitDefinition);
-    expect(isValid).to.be.false;
-    if (CompiledBehaviourTraitDefinitionSchema.errors) {
-      console.error("Validation errors for long default profile name:", CompiledBehaviourTraitDefinitionSchema.errors);
-    }
-  });
-
-  it("should invalidate when the value in default profile is out of range", function () {
-    const invalidBehaviourTraitDefinition = {
+        index: { value: 1 },
+      },
       definition: {
-        index: { value: 90 },
+        index: 90,
         extension: {
           subindex: 0,
           name: "Valid Behaviour Name",
           description: "A valid description."
         }
-      },
-      defaults: {
-        index: 1,
-        name: "Default Profile",
-        value: 300 // Exceeds maximum of 255
       }
     };
 
     const isValid = CompiledBehaviourTraitDefinitionSchema(invalidBehaviourTraitDefinition);
     expect(isValid).to.be.false;
     if (CompiledBehaviourTraitDefinitionSchema.errors) {
-      console.error("Validation errors for out-of-range default profile value:", CompiledBehaviourTraitDefinitionSchema.errors);
+      console.error("Validation errors for missing required properties:", CompiledBehaviourTraitDefinitionSchema.errors);
     }
   });
 
-  it("should invalidate when a required property is missing in the default profile", function () {
+  it("should invalidate when additional properties are present", function () {
     const invalidBehaviourTraitDefinition = {
-      definition: {
-        index: { value: 90 },
-        extension: {
-          subindex: 100,
-          name: "Valid Behaviour Name",
-          description: "A valid description.",
-        }
-      },
       defaults: {
-        index: 1,
-        // Missing 'name' and 'value'
+        index: { value: 1 },
+        subindex: { value: 0 },
+        value: { value: true }
+      },
+      definition: {
+        index: 90,
+        extension: {
+          subindex: 0,
+          name: "Valid Behaviour Name",
+          description: "A valid description."
+        }
       }
     };
 
     const isValid = CompiledBehaviourTraitDefinitionSchema(invalidBehaviourTraitDefinition);
     expect(isValid).to.be.false;
     if (CompiledBehaviourTraitDefinitionSchema.errors) {
-      console.error("Validation errors for missing properties in default profile:", CompiledBehaviourTraitDefinitionSchema.errors);
+      console.error("Validation errors for additional properties:", CompiledBehaviourTraitDefinitionSchema.errors);
     }
   });
 
-  it("should invalidate when additional properties are present in the default profile", function () {
+  it("should invalidate when the value in defaults is out of range", function () {
     const invalidBehaviourTraitDefinition = {
-      definition: {
-        index: { value: 90 },
-        extension: {
-          subindex: 100,
-          name: "Valid Behaviour Name",
-          description: "A valid description.",
-        }
-      },
       defaults: {
-        index: 1,
-        name: "Default Profile",
-        value: true,
-        extraProperty: "Not allowed" // Additional property not allowed
+        index: { value: 1 },
+        subindex: { value: 0 },
+        value: { value: 400 }
+      },
+      definition: {
+        index: 90,
+        extension: {
+          subindex: 0,
+          name: "Valid Behaviour Name",
+          description: "A valid description."
+        }
       }
     };
 
     const isValid = CompiledBehaviourTraitDefinitionSchema(invalidBehaviourTraitDefinition);
     expect(isValid).to.be.false;
     if (CompiledBehaviourTraitDefinitionSchema.errors) {
-      console.error("Validation errors for additional properties in default profile:", CompiledBehaviourTraitDefinitionSchema.errors);
+      console.error("Validation errors for out-of-range value in defaults:", CompiledBehaviourTraitDefinitionSchema.errors);
     }
   });
+
+  it("should invalidate when the subindex in definition is out of range", function () {
+    const invalidBehaviourTraitDefinition = {
+      defaults: {
+        index: { value: 1 },
+        subindex: { value: 0 },
+        value: { value: true }
+      },
+      definition: {
+        index: 90,
+        extension: {
+          subindex: 300, // Exceeds maximum valid range
+          name: "Valid Behaviour Name",
+          description: "A valid description."
+        }
+      }
+    };
+
+    const isValid = CompiledBehaviourTraitDefinitionSchema(invalidBehaviourTraitDefinition);
+    expect(isValid).to.be.false;
+    if (CompiledBehaviourTraitDefinitionSchema.errors) {
+      console.error("Validation errors for out-of-range subindex in definition:", CompiledBehaviourTraitDefinitionSchema.errors);
+    }
+  });
+
 });
