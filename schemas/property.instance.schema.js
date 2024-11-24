@@ -4,6 +4,7 @@ import IndexRangeRegistry from "../schemas/_indexregistry.js";
 
 // Initialize AJV
 const ajv = new Ajv({ allErrors: true });
+
 addErrors(ajv);
 
 const { start: propertyValueStart, end: propertyvalueEnd } = IndexRangeRegistry.propertyValueRange;

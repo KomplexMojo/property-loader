@@ -4,6 +4,7 @@ import Ajv from "ajv";
 import addErrors from "ajv-errors";
 import { TriggerIndexSchema } from "./trigger.index.schema.js";
 import { PropertyInstanceSchema } from "./property.instance.schema.js";
+import { SubIndexSchema } from "./subindex.schema.js";
 
 // Initialize AJV
 const ajv = new Ajv({ allErrors: true });
@@ -11,6 +12,7 @@ const ajv = new Ajv({ allErrors: true });
 addErrors(ajv);
 
 ajv.addSchema(TriggerIndexSchema, "http://example.com/schemas/trigger.index.json");
+ajv.addSchema(SubIndexSchema, "http://example.com/schemas/subindex.json" );
 ajv.addSchema(PropertyInstanceSchema, "http://example.com/schemas/property.instance.json");
 
 const TriggerInstanceSchema = {
@@ -23,8 +25,8 @@ const TriggerInstanceSchema = {
       errorMessage: "The 'index' must be a valid trigger index.",
     },
     subindex: {
-      $ref: "http://example.com/schemas/property.instance.json",
-      errorMessage: "The 'primary value' must be a valid property instance even if it is set to 0. Primary values could be a set to the index of the property for a definition.",
+      $ref: "http://example.com/schemas/subindex.json",
+      errorMessage: "The 'subindex' must be a valid property instance even if it is set to 0. Primary values could be a set to the index of the property for a definition.",
     },
     value: {
       $ref: "http://example.com/schemas/property.instance.json",

@@ -5,7 +5,7 @@ describe("Definition Extension Schema Validation", function () {
   
   it("should validate a correct Definition Extension object", function () {
     const validDefinitionExtension = {
-      subindex: 100,
+      subindex: { value: 100},
       name: "Valid Name",
       description: "A valid description that does not exceed the maximum length."
     };
@@ -17,7 +17,7 @@ describe("Definition Extension Schema Validation", function () {
 
   it("should invalidate when 'name' exceeds maximum length", function () {
     const invalidDefinitionExtension = {
-      subindex: 100,
+      subindex: { value: 100},
       name: "A".repeat(65), // Exceeds 64 character max length
       description: "A valid description.",
     };

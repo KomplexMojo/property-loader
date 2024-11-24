@@ -1,0 +1,59 @@
+{
+    "event.template": {
+        "defaults": {
+            "index": {
+                "value": 0
+            },
+            "subindex": {
+                "value": 0
+            },
+            "value": {
+                "value": 10
+            }
+        },
+        "event": {
+            "index": {
+                "value": 140
+            },
+            "subindex": {
+                "value": 0
+            },
+            "value": {
+                "value": 0
+            }
+        },
+        "trigger": {
+            "index": {
+                "value": 160
+            },
+            "subindex": {
+                "value": 0
+            },
+            "value": {
+                "value": 0
+            }
+        },
+        "effects": {
+            "index": {
+                "value": 192
+            },
+            "subindex": {
+                "value": 0
+            },
+            "value": {
+                "value": 0
+            }
+        },
+        "conditions": {
+            "index": {
+                "value": 224
+            },
+            "subindex": {
+                "value": 0
+            },
+            "value": {
+                "value": 0
+            }
+        }
+    }
+}

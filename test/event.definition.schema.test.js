@@ -7,7 +7,7 @@ describe("Event Definition Schema Validation", function () {
     const validEventDefinition = {
       index: { value: 140 },
       extension: {
-        subindex: 100,
+        subindex: { value: 100},
         name: "Valid Event Name",
         description: "This is a valid description within allowed length."
       }

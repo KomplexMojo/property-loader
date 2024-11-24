@@ -3,6 +3,7 @@
 import Ajv from "ajv";
 import addErrors from "ajv-errors";
 import IndexRangeRegistry from "./_indexregistry.js";
+import { SubIndexSchema } from "./subindex.schema.js";
 
 // Initialize AJV
 const ajv = new Ajv({ allErrors: true });
@@ -16,23 +17,15 @@ const descriptionPropertyMaxLength = descriptionPropertyEnd - descriptionPropert
 
 addErrors(ajv);
 
+ajv.addSchema(SubIndexSchema, "http://example.com/schemas/subindex.json" );
+
 // Define the defaultdefinition schema with error handling
 const DefinitionExtensionSchema = {
   $schema: "http://json-schema.org/draft-07/schema#",
   $id: "http://example.com/schemas/definition.extension.json",
   type: "object",
   properties: {
-    subindex: {
-      type: "integer",
-      minimum: 0,
-      maximum: 255,
-      description: "The subindex of the definition. These are used for definitions that have sub-properties.",
-      errorMessage: {
-        type: "The 'subindex' must be an integer.",
-        minimum: `The 'subindex' must be at least 0.`,
-        maximum: `The 'subindex' must be at most 255.`,
-      }
-    },
+    subindex: { $ref: "http://example.com/schemas/subindex.json" },
     name: {
       type: "string",
       maxLength: namePropertyMaxLength,

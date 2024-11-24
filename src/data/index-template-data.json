@@ -1,0 +1,14 @@
+{
+    "event.index": {
+        "value": 140
+    },
+    "triggers.index": {
+        "value": 160
+    },
+    "effects.index": {
+        "value": 192
+    },
+    "conditions.index": {
+        "value": 224
+    }
+}

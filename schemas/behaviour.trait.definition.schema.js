@@ -7,6 +7,7 @@ import { BehaviourDefinitionSchema } from "./behaviour.definition.schema.js";
 import { DefinitionExtensionSchema } from "./definition.extension.schema.js";
 import { PropertyInstanceSchema } from "./property.instance.schema.js";
 import { ProfileDefaultInstanceSchema } from "./profiledefault.instance.schema.js"
+import { SubIndexSchema } from "./subindex.schema.js";
 
 // Initialize AJV
 const ajv = new Ajv({ allErrors: true });
@@ -16,6 +17,7 @@ addErrors(ajv);
 ajv.addSchema(PropertyInstanceSchema, "http://example.com/schemas/property.instance.json" );
 ajv.addSchema(ProfileDefaultInstanceSchema, "http://example.com/schemas/profiledefault.instance.json");
 ajv.addSchema(BehaviourIndexSchema, "http://example.com/schemas/behaviour.index.json");
+ajv.addSchema(SubIndexSchema, "http://example.com/schemas/subindex.json" );
 ajv.addSchema(DefinitionExtensionSchema, "http://example.com/schemas/definition.extension.json");
 ajv.addSchema(BehaviourDefinitionSchema, "http://example.com/schemas/behaviour.definition.json");
 

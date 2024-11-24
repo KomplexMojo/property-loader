@@ -13,7 +13,7 @@ describe("Characteristic Trait Definition Schema Validation", function () {
       definition: {
         index: { value: 45 }, // Valid index for characteristic range
         extension: {
-          subindex: 100,
+          subindex: { value: 100 },
           name: "Valid Name",
           description: "A valid description."
         }

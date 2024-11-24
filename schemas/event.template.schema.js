@@ -14,6 +14,7 @@ import { ConditionIndexSchema } from "./condition.index.schema.js";
 import { TriggerInstanceSchema } from "./trigger.instance.schema.js";
 import { EffectInstanceSchema } from "./effect.instance.schema.js";
 import { ConditionInstanceSchema } from "./condition.instance.schema.js";
+import { SubIndexSchema } from "./subindex.schema.js";
 import { PropertyInstanceSchema } from "./property.instance.schema.js";
 import { EventInstanceSchema } from "./event.instance.schema.js";
 import { ProfileDefaultInstanceSchema } from "./profiledefault.instance.schema.js";
@@ -41,6 +42,7 @@ ajv.addSchema(EffectIndexSchema, "http://example.com/schemas/effect.index.json")
 ajv.addSchema(ConditionIndexSchema, "http://example.com/schemas/condition.index.json");
 
 // instance schemas
+ajv.addSchema(SubIndexSchema, "http://example.com/schemas/subindex.json" );
 ajv.addSchema(PropertyInstanceSchema, "http://example.com/schemas/property.instance.json");
 ajv.addSchema(TriggerInstanceSchema, "http://example.com/schemas/trigger.instance.json");
 ajv.addSchema(EffectInstanceSchema, "http://example.com/schemas/effect.instance.json");

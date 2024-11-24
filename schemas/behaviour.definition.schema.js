@@ -4,6 +4,7 @@ import Ajv from "ajv";
 import addErrors from "ajv-errors";
 import { BehaviourIndexSchema } from "./behaviour.index.schema.js";
 import { DefinitionExtensionSchema } from "./definition.extension.schema.js";
+import { SubIndexSchema } from "./subindex.schema.js";
 
 // Initialize AJV
 const ajv = new Ajv({ allErrors: true });
@@ -11,6 +12,7 @@ const ajv = new Ajv({ allErrors: true });
 addErrors(ajv);
 
 ajv.addSchema(BehaviourIndexSchema, "http://example.com/schemas/behaviour.index.json");
+ajv.addSchema(SubIndexSchema, "http://example.com/schemas/subindex.json" );
 ajv.addSchema(DefinitionExtensionSchema, "http://example.com/schemas/definition.extension.json");
 
 const BehaviourDefinitionSchema = {

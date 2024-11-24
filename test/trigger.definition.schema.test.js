@@ -7,7 +7,7 @@ describe("Trigger Definition Schema Validation", function () {
     const validTriggerDefinition = {
       index: { value: 170 }, // Assuming within the trigger index range
       extension: {
-        subindex: 100,
+        subindex: {value: 100},
         name: "Valid Name",
         description: "A valid description that does not exceed the maximum length."
       }

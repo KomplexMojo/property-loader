@@ -17,16 +17,15 @@ import { DefinitionExtensionSchema } from "./definition.extension.schema.js";
 import { BehaviourDefinitionSchema } from "./behaviour.definition.schema.js";
 import { CharacteristicDefinitionSchema } from "./characteristic.definition.schema.js";
 import { ConditionDefinitionSchema } from "./condition.definition.schema.js";
-import { DataPixelDefinitionSchema } from "./datapixel.definition.schema.js";
 import { EffectDefinitionSchema } from "./effect.definition.schema.js";
+import { SubIndexSchema } from "./subindex.schema.js";
 import { EventDefinitionSchema } from "./event.definition.schema.js";
 import { HeaderDefinitionSchema } from "./header.definition.schema.js";
-import { PixelsDefinitionSchema } from "./pixels.definition.schema.js";
 import { ProfileDefaultDefinitionSchema } from "./profiledefault.definition.schema.js";
 import { PropertyDefinitionSchema } from "./property.definition.schema.js";
 import { TriggerDefinitionSchema } from "./trigger.definition.schema.js";
+import { PixelDefinitionSchema } from "./pixel.definition.schema.js";
 import { VisualizationDefinitionSchema } from "./visualization.definition.schema.js";
-import { VisualPixelDefinitionSchema } from "./visualpixel.definition.schema.js";
 
 // instance schemas
 import { ConditionInstanceSchema } from "./condition.instance.schema.js";
@@ -48,6 +47,7 @@ const { start: triggerStart, end: triggerEnd } = IndexRangeRegistry.triggerRange
 const { start: effectStart, end: effectEnd } = IndexRangeRegistry.effectRange;
 const { start: conditionStart, end: conditionEnd } = IndexRangeRegistry.conditionRange;
 const { start: profileDefaultStart, end: profileDefaultEnd } = IndexRangeRegistry.profileDefaultsRange;
+const { start: pixelMin, end: pixelMax } = IndexRangeRegistry.pixelRange;
 
 // Calculate maxItems dynamically
 const visualizationMaxItems = visualizationEnd - visualizationStart + 1;
@@ -58,6 +58,7 @@ const triggersMaxItems = triggerEnd - triggerStart + 1;
 const effectsMaxItems = effectEnd - effectStart + 1;
 const conditionsMaxItems = conditionEnd - conditionStart + 1;
 const profileDefaultMaxItems = profileDefaultEnd - profileDefaultStart +1;
+const totalPixels = pixelMax - pixelMin +1;
 
 // Initialize AJV
 const ajv = new Ajv({ allErrors: true, strict: false });
@@ -73,24 +74,23 @@ ajv.addSchema(EffectIndexSchema, "http://example.com/schemas/effect.index.json")
 ajv.addSchema(EventIndexSchema, "http://example.com/schemas/event.index.json");
 ajv.addSchema(TriggerIndexSchema, "http://example.com/schemas/trigger.index.json");
 
+ajv.addSchema(SubIndexSchema, "http://example.com/schemas/subindex.json" );
 ajv.addSchema(PropertyInstanceSchema,"http://example.com/schemas/property.instance.schema.json");
 ajv.addSchema(ProfileDefaultInstanceSchema,"http://example.com/schemas/profiledefault.instance.schema.json");
 
-// definition schemas
+// Add schemas to AJV registry
+ajv.addSchema(PixelDefinitionSchema, "http://example.com/schemas/pixel.definition.json");
 ajv.addSchema(DefinitionExtensionSchema,"http://example.com/schemas/definition.extension.json");
 ajv.addSchema(VisualizationDefinitionSchema,"http://example.com/schemas/visualization.definition.json");
 ajv.addSchema(BehaviourDefinitionSchema,"http://example.com/schemas/behaviour.definition.json");
 ajv.addSchema(CharacteristicDefinitionSchema,"http://example.com/schemas/characteristic.definition.json");
 ajv.addSchema(ConditionDefinitionSchema,"http://example.com/schemas/condition.definition.json");
-ajv.addSchema(DataPixelDefinitionSchema,"http://example.com/schemas/datapixel.definition.json");
 ajv.addSchema(EffectDefinitionSchema,"http://example.com/schemas/effect.definition.json");
 ajv.addSchema(EventDefinitionSchema,"http://example.com/schemas/event.definition.json");
 ajv.addSchema(HeaderDefinitionSchema,"http://example.com/schemas/header.definition.json");
-ajv.addSchema(PixelsDefinitionSchema,"http://example.com/schemas/pixels.definition.json");
 ajv.addSchema(ProfileDefaultDefinitionSchema,"http://example.com/schemas/profiledefault.definition.json");
 ajv.addSchema(PropertyDefinitionSchema,"http://example.com/schemas/property.definition.json");
 ajv.addSchema(TriggerDefinitionSchema,"http://example.com/schemas/trigger.definition.json");
-ajv.addSchema(VisualPixelDefinitionSchema,"http://example.com/schemas/visualpixel.definition.json");
 
 // instance schemas
 ajv.addSchema(ConditionInstanceSchema,"http://example.com/schemas/condition.instance.schema.json");

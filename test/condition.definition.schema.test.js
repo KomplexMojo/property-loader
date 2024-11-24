@@ -7,7 +7,7 @@ describe("Condition Definition Schema Validation", function () {
     const validConditionDefinition = {
       index: { value: 224 }, // Valid index within condition range
       extension: {
-        subindex: 150,
+        subindex: { value: 150 },
         name: "Valid Condition Name",
         description: "A valid description within length limit."
       }

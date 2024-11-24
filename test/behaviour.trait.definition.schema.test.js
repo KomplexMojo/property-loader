@@ -13,7 +13,7 @@ describe("Behaviour Trait Definition Schema Validation", function () {
       definition: {
         index: { value: 90 }, // Within valid range for behaviours
         extension: {
-          subindex: 0,
+          subindex: { value: 0 },
           name: "Valid Name",
           description: "A valid description for behaviour."
         }

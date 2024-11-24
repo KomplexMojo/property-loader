@@ -7,7 +7,7 @@ describe("Effect Header Schema Validation", function () {
     const validEffectHeader = {
       index: { value: 192 }, // Valid effect index within range
       extension: {
-        subindex: 0,
+        subindex: {value: 0},
         name: "Valid Effect Name",
         description: "A valid description for the effect."
       }

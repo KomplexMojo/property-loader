@@ -13,22 +13,28 @@ describe("Visualization Trait Definition Schema Validation", function () {
       definition: {
         index: { value: 20 }, // Within valid range for behaviours
         extension: {
-          subindex: 0,
+          subindex: { value: 0 },
           name: "Valid Name",
           description: "A valid description for a visualization."
         }
       },
       pixels: Array.from({ length: 256 }, (_, i) => ({
         index: i,
+        IsStorage: i % 2 === 0 ? true : false,
         R: 255,
         G: 255,
         B: 255,
-        A: i % 2 === 0 ? 1 : 255, // Alternate valid alpha values for visual pixels
+        A: i % 2 === 0 ? 0 : 255, // Alternate valid alpha values for visual pixels
       })),
     };
 
     const isValid = CompiledVisualizationTraitSchema(validVisualizationTrait);
     expect(isValid).to.be.true;
+
+    if (CompiledVisualizationTraitSchema.errors) {
+      console.error("Validation errors for invalid DataPixel in 'pixels':", CompiledVisualizationTraitSchema.errors);
+    }
+
     expect(CompiledVisualizationTraitSchema.errors).to.be.null;
   });
 
@@ -53,6 +59,7 @@ describe("Visualization Trait Definition Schema Validation", function () {
       },
       pixels: Array.from({ length: 256 }, (_, i) => ({
         index: i,
+        IsStorage: false,
         R: 255,
         G: 255,
         B: 255,
@@ -88,6 +95,7 @@ describe("Visualization Trait Definition Schema Validation", function () {
       },
       pixels: Array.from({ length: 255 }, (_, i) => ({
         index: i,
+        IsStorage: false,
         R: 255,
         G: 255,
         B: 255,
@@ -123,6 +131,7 @@ describe("Visualization Trait Definition Schema Validation", function () {
       },
       pixels: Array.from({ length: 257 }, (_, i) => ({
         index: i,
+        IsStorage: false,
         R: 255,
         G: 255,
         B: 255,
@@ -158,6 +167,7 @@ describe("Visualization Trait Definition Schema Validation", function () {
       },
       pixels: Array.from({ length: 256 }, (_, i) => ({
         index: i < 255 ? i : 254, // Duplicate index
+        IsStorage: false,
         R: 255,
         G: 255,
         B: 255,

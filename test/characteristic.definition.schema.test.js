@@ -7,7 +7,7 @@ describe("Characteristics Definition Schema Validation", function () {
     const validCharacteristicsDefinition = {
       index: { value: 45 }, // Within valid range for characteristics
       extension: {
-        subindex: 0,
+        subindex: { value: 0 },
         name: "Valid Name",
         description: "A valid description.",
       }

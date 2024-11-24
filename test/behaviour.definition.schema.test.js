@@ -7,7 +7,7 @@ describe("Behaviour Definition Schema Validation", function () {
     const validBehaviourDefinition = {
       index: { value: 90 },
       extension: {
-        subindex: 100,
+        subindex: { value: 100} ,
         name: "Valid Name",
         description: "A valid description within length limits.",
       }

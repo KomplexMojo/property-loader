@@ -7,7 +7,7 @@ describe("Visualization Definition Schema Validation", function () {
     const validVisualizationDefinition = {
       index: { value: 0 },
       extension: {
-        subindex: 100,
+        subindex: {value: 100},
         name: "Valid Name",
         description: "A valid description that does not exceed the maximum length."
       }

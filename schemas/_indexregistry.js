@@ -9,9 +9,13 @@ const IndexRangeRegistry = {
     effectRange: { start: 192, end: 223 },
     conditionRange: { start: 224, end: 255 },
     profileDefaultsRange: { start: 0, end: 255 }, // constrained by the number of values that fit into a u8.
-    propertyValueRange: { start: 0, end: 255 },
+    propertyValueRange: { start: 0, end: 255 }, 
     namePropertyRange: { start: 0, end: 63}, // lengeth of name descriptors.
-    descriptionPropertyRange: {start: 0, end: 255}
+    descriptionPropertyRange: {start: 0, end: 255},
+    pixelRange: {start: 0, end: 255},
+    definitionRange: {start: 0, end: 255},
+    instanceRange: {start: 0, end: 255},
+    subindexRange: {start: 0, end: 255}
   };
   
   export default IndexRangeRegistry;
